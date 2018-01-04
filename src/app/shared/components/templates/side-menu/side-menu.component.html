@@ -1,0 +1,26 @@
+<ul nz-menu [nzMode]="'inline'" style="height:100%">
+  <li nz-submenu>
+    <span title>
+      <i class="anticon anticon-home"></i>租屋管理
+    </span>
+    <ul>
+      <li nz-menu-item [routerLink]="['/rent/rentDetail']">房間資訊</li>
+      <li nz-menu-item [routerLink]="['/rent/userDetail']">租戶資訊</li>
+      <li nz-menu-item [routerLink]="['/rent/payflow']">繳費紀錄</li>
+    </ul>
+  </li>
+  <li nz-submenu>
+    <span title>
+      <i class="anticon anticon-user-add"></i>系統管理</span>
+    <ul>
+      <li nz-menu-item [routerLink]="['/rent/manager']">管理員資料</li>
+    </ul>
+  </li>
+  <li nz-submenu>
+    <span title>
+      <i class="anticon anticon-setting"></i>設定</span>
+    <ul>
+      <li nz-menu-item (click)="logout()">登出</li>
+    </ul>
+  </li>
+</ul>
