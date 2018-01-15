@@ -1,40 +1,99 @@
-<nz-table #nzTable [nzAjaxData]="_dataSet" nzShowSizeChanger [nzLoading]="_loading" [nzTotal]="_total" [(nzPageIndex)]="_current"
-  (nzPageIndexChange)="refreshData()" [(nzPageSize)]="_pageSize" (nzPageSizeChange)="refreshData(true)">
+<br>
+<div>
+  <div class="search-bar inline-block">
+    <span>查詢：</span>
+    <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
+    <button nz-button [nzType]="'primary'" (click)="search()">
+      <i class="anticon anticon-search"></i>
+      <span>Search</span>
+    </button>
+  </div>
+</div>
+<br>
+<nz-table #nzTable [nzAjaxData]="data" [nzLoading]="_loading" [nzIsPagination]="false">
   <thead nz-thead>
     <tr>
+      <th nz-th nzExpand></th>
       <th nz-th>
-        <span>Name</span>
-        <nz-table-sort (nzValueChange)="sort($event)"></nz-table-sort>
+        <span>房號</span>
       </th>
       <th nz-th>
-        <span>Gender</span>
-        <nz-dropdown [nzTrigger]="'click'">
-          <i class="anticon anticon-filter" nz-dropdown></i>
-          <ul nz-menu>
-            <li nz-menu-item *ngFor="let filter of _filterGender">
-              <label nz-checkbox [(ngModel)]="filter.value">
-                <span>{{filter.name}}</span>
-              </label>
-            </li>
-          </ul>
-          <div nz-table-filter>
-            <span nz-table-filter-confirm (click)="refreshData(true)">OK</span>
-            <span nz-table-filter-clear (click)="reset()">Reset</span>
-          </div>
-        </nz-dropdown>
+        <span>房客姓名</span>
       </th>
       <th nz-th>
-        <span>Email</span>
+        <span>繳費種類</span>
+      </th>
+      <th nz-th>
+        <span>租約起始時間</span>
+      </th>
+      <th nz-th>
+        <span>租約結束時間</span>
+      </th>
+      <th nz-th>
+        <span>入住時間</span>
+      </th>
+      <th nz-th>
+        <span>搬離時間</span>
+      </th>
+      <th nz-th>
+        <span>動作</span>
       </th>
     </tr>
   </thead>
   <tbody nz-tbody>
-    <tr nz-tbody-tr *ngFor="let data of nzTable.data">
-      <td nz-td>
-        <a>{{data.name.first}} {{data.name.last}}</a>
-      </td>
-      <td nz-td>{{data.gender}}</td>
-      <td nz-td>{{data.email}}</td>
-    </tr>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <tr nz-tbody-tr>
+        <td nz-td nzExpand>
+          <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
+        </td>
+        <td nz-td>{{data.RoomNo}}</td>
+        <td nz-td>{{data.UserDetails[0].UserName}}</td>
+        <td nz-td>{{data.CalculateType}}</td>
+        <td nz-td>{{data.RentStartDate}}</td>
+        <td nz-td>{{data.RentEndDate}}</td>
+        <td nz-td>{{data.EnterDate}}</td>
+        <td nz-td>{{data.LeaveDate}}</td>
+        <td nz-td>
+          <span>
+            <a href="#">Delete</a>
+          </span>
+        </td>
+      </tr>
+      <tr nz-tbody-tr *ngIf="data.expand">
+        <td nz-td></td>
+        <td nz-td colspan="8">
+          性別
+          <span nz-table-divider></span>{{data.UserDetails[0].Sex}}
+          <br>
+          <br> 生日
+          <span nz-table-divider></span>{{data.UserDetails[0].Birth | amDateFormat:'YYYY-MM-DD'}}
+          <br>
+          <br> Email
+          <span nz-table-divider></span>{{data.UserDetails[0].Email}}
+          <br>
+          <br> 電話
+          <span nz-table-divider></span>{{data.UserDetails[0].Phone}}
+          <br>
+          <br> 身分證字號
+          <span nz-table-divider></span>{{data.UserDetails[0].IDCardNo}}
+          <br>
+          <br> 地址
+          <span nz-table-divider></span>{{data.UserDetails[0].Address}}
+          <br>
+          <br> 職業
+          <span nz-table-divider></span>{{data.UserDetails[0].Career}}
+          <br>
+          <br> 緊急聯絡人
+          <span nz-table-divider></span>{{data.UserDetails[0].ContactUser}}
+          <br>
+          <br> 緊急聯絡人電話
+          <span nz-table-divider></span>{{data.UserDetails[0].ContactUserPhone}}
+          <br>
+        </td>
+      </tr>
+    </ng-template>
   </tbody>
 </nz-table>
+<nz-pagination class="float-right" [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" nzSize="small" (nzPageIndexChange)="pageChange($event)"
+nzShowQuickJumper nzShowTotal>
+</nz-pagination>
