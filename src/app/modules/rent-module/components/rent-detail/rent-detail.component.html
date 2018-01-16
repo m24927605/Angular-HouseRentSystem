@@ -61,8 +61,10 @@
       </tr>
       <tr nz-tbody-tr *ngIf="data.expand">
         <td nz-td></td>
-        <td nz-td colspan="8">
-          性別
+        <td nz-td colspan="3">
+          <h2>房客資訊</h2>
+          <br>
+          <br> 性別
           <span nz-table-divider></span>{{data.UserDetails[0].Sex}}
           <br>
           <br> 生日
@@ -89,6 +91,25 @@
           <br> 緊急聯絡人電話
           <span nz-table-divider></span>{{data.UserDetails[0].ContactUserPhone}}
           <br>
+        </td>
+        <td nz-td colspan="6">
+          <h2>繳交狀況</h2>
+          <br>
+          <br>
+          <ng-template ngFor let-item [ngForOf]="data.UserDetails[0].PayFlows">
+            房號
+            <span nz-table-divider></span>{{item.RoomNo}}
+            <br> 使用電量
+            <span nz-table-divider></span>{{item.PowerQty}}
+            <br>租期
+            <span nz-table-divider></span>{{item.RentPeriod| amDateFormat:'YYYY-MM'}}
+            <br>繳交時間
+            <span nz-table-divider></span>{{item.TimeOfPayment| amDateFormat:'YYYY-MM-DD'}}
+            <br> 繳交金額
+            <span nz-table-divider></span>{{item.Payment}}
+            <br>
+            <br>
+          </ng-template>
         </td>
       </tr>
     </ng-template>

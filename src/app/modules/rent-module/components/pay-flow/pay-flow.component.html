@@ -27,7 +27,10 @@
         <span>繳交金額</span>
       </th>
       <th nz-th>
-        <span>繳交租期</span>
+        <span>租期</span>
+      </th>
+      <th nz-th>
+        <span>繳交時間</span>
       </th>
       <th nz-th>
         <span>新增者</span>
@@ -56,7 +59,8 @@
         <td nz-td>{{data.RoomNo}}</td>
         <td nz-td>{{data.PowerQty}}</td>
         <td nz-td>{{data.Payment}}</td>
-        <td nz-td>{{data.TimeOfPayment | amDateFormat: 'YYYY-MM'}}</td>
+        <td nz-td>{{data.RentPeriod | amDateFormat: 'YYYY-MM'}}</td>
+        <td nz-td>{{data.TimeOfPayment | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td nz-td>{{data.CreateUser}}</td>
         <td nz-td>{{data.CreateDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td nz-td>{{data.ModifyUser}}</td>
@@ -70,6 +74,9 @@
       <tr nz-tbody-tr *ngIf="data.expand">
         <td nz-td></td>
         <td nz-td colspan="6">
+          <h2>房客資訊</h2>
+          <br>
+          <br>
           房客姓名
           <span nz-table-divider></span>{{data.UserDetail.UserName}}
           <br>
@@ -102,6 +109,9 @@
           <br>
         </td>
         <td nz-td colspan="6">
+          <h2>租約細節</h2>
+          <br>
+          <br>
           繳費種類
           <span nz-table-divider></span>{{data.UserDetail.RentDetail.CalculateType}}
           <br>
