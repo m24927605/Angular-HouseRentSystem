@@ -1,3 +1,105 @@
-<p>
-  user-detail works!
-</p>
+<br>
+<div>
+  <div class="search-bar inline-block">
+    <span>查詢：</span>
+    <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
+    <button nz-button [nzType]="'primary'" (click)="search()">
+      <i class="anticon anticon-search"></i>
+      <span>Search</span>
+    </button>
+  </div>
+</div>
+<br>
+<nz-table #nzTable [nzAjaxData]="data" [nzLoading]="_loading" [nzIsPagination]="false">
+  <thead nz-thead>
+    <tr>
+      <th nz-th nzExpand></th>
+      <th nz-th>
+        <span>房客姓名</span>
+      </th>
+      <th nz-th>
+        <span>生日</span>
+      </th>
+      <th nz-th>
+        <span>性別</span>
+      </th>
+      <th nz-th>
+        <span>住址</span>
+      </th>
+      <th nz-th>
+        <span>身份證字號</span>
+      </th>
+      <th nz-th>
+        <span>手機號碼</span>
+      </th>
+      <th nz-th>
+        <span>緊急聯絡人</span>
+      </th>
+      <th nz-th>
+        <span>緊急聯絡人電話</span>
+      </th>
+      <th nz-th>
+        <span>信箱</span>
+      </th>
+      <th nz-th>
+        <span>LineID</span>
+      </th>
+      <th nz-th>
+        <span>動作</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody nz-tbody>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <tr nz-tbody-tr>
+        <td nz-td nzExpand>
+          <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
+        </td>
+        <td nz-td>{{data.UserName}}</td>
+        <td nz-td>{{data.Birth | amDateFormat: 'YYYY-MM-DD'}}</td>
+        <td nz-td>{{data.Sex}}</td>
+        <td nz-td>{{data.Address}}</td>
+        <td nz-td>{{data.IDCardNo}}</td>
+        <td nz-td>{{data.Phone}}</td>
+        <td nz-td>{{data.ContactUser}}</td>
+        <td nz-td>{{data.ContactUserPhone}}</td>
+        <td nz-td>{{data.Email}}</td>
+        <td nz-td>{{data.LineID}}</td>
+        <td nz-td>
+          <span>
+            <a href="#">Delete</a>
+          </span>
+        </td>
+      </tr>
+      <tr nz-tbody-tr *ngIf="data.expand">
+        <td nz-td></td>
+        <td nz-td colspan="8">
+          房號
+          <span nz-table-divider></span>{{data.RentDetail.RoomNo}}
+          <br>
+          <br> 租約起始日期
+          <span nz-table-divider></span>{{data.RentDetail.RentStartDate | amDateFormat:'YYYY-MM-DD'}}
+          <br>
+          <br> 租約結束日期
+          <span nz-table-divider></span>{{data.RentDetail.RentEndDate | amDateFormat: 'YYYY-MM-DD'}}
+          <br>
+          <br> 每月房租
+          <span nz-table-divider></span>{{data.RentDetail.RentMonthly}}
+          <br>
+          <br> 繳費種類
+          <span nz-table-divider></span>{{data.RentDetail.CalculateType}}
+          <br>
+          <br> 搬入日期
+          <span nz-table-divider></span>{{data.RentDetail.EnterDate | amDateFormat: 'YYYY-MM-DD'}}
+          <br>
+          <br> 搬離日期
+          <span nz-table-divider></span>{{data.RentDetail.LeaveDate | amDateFormat: 'YYYY-MM-DD'}}
+          <br>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+<nz-pagination class="float-right" [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" nzSize="small" (nzPageIndexChange)="pageChange($event)"
+  nzShowQuickJumper nzShowTotal>
+</nz-pagination>

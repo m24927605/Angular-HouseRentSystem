@@ -49,10 +49,10 @@
         <td nz-td>{{data.RoomNo}}</td>
         <td nz-td>{{data.UserDetails[0].UserName}}</td>
         <td nz-td>{{data.CalculateType}}</td>
-        <td nz-td>{{data.RentStartDate}}</td>
-        <td nz-td>{{data.RentEndDate}}</td>
-        <td nz-td>{{data.EnterDate}}</td>
-        <td nz-td>{{data.LeaveDate}}</td>
+        <td nz-td>{{data.RentStartDate | amDateFormat: 'YYYY-MM-DD'}}</td>
+        <td nz-td>{{data.RentEndDate | amDateFormat: 'YYYY-MM-DD'}}</td>
+        <td nz-td>{{data.EnterDate | amDateFormat: 'YYYY-MM-DD'}}</td>
+        <td nz-td>{{data.LeaveDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td>
           <span>
             <a href="#">Delete</a>
@@ -95,5 +95,5 @@
   </tbody>
 </nz-table>
 <nz-pagination class="float-right" [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" nzSize="small" (nzPageIndexChange)="pageChange($event)"
-nzShowQuickJumper nzShowTotal>
+  nzShowQuickJumper nzShowTotal>
 </nz-pagination>

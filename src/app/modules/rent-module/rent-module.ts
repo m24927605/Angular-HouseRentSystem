@@ -10,6 +10,8 @@ import { CookieHelperService } from '../../shared/helpers/collection';
 import { RentDetailService } from './components/rent-detail/rent-detail.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserDetailService } from './components/user-detail/user-detail.service';
+import { PayFlowService } from './components/pay-flow/pay-flow.service';
 
 export function httpFactory(backend: XHRBackend, options: RequestOptions) {
     return new HttpHelperService(backend, options);
@@ -32,7 +34,9 @@ export function httpFactory(backend: XHRBackend, options: RequestOptions) {
       },
         DataAccessService,
         CookieHelperService,
-        RentDetailService
+        RentDetailService,
+        UserDetailService,
+        PayFlowService
       ],
 })
 export class RentModule { }

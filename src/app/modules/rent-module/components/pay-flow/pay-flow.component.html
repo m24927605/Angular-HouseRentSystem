@@ -1,3 +1,133 @@
-<p>
-  pay-flow works!
-</p>
+<br>
+<div>
+  <div class="search-bar inline-block">
+    <span>查詢：</span>
+    <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
+    <button nz-button [nzType]="'primary'" (click)="search()">
+      <i class="anticon anticon-search"></i>
+      <span>Search</span>
+    </button>
+  </div>
+</div>
+<br>
+<nz-table #nzTable [nzAjaxData]="data" [nzLoading]="_loading" [nzIsPagination]="false">
+  <thead nz-thead>
+    <tr>
+      <th nz-th nzExpand></th>
+      <th nz-th>
+        <span>流水號</span>
+      </th>
+      <th nz-th>
+        <span>房號</span>
+      </th>
+      <th nz-th>
+        <span>使用電量</span>
+      </th>
+      <th nz-th>
+        <span>繳交金額</span>
+      </th>
+      <th nz-th>
+        <span>繳交租期</span>
+      </th>
+      <th nz-th>
+        <span>新增者</span>
+      </th>
+      <th nz-th>
+        <span>新增時間</span>
+      </th>
+      <th nz-th>
+        <span>修改者</span>
+      </th>
+      <th nz-th>
+        <span>修改時間</span>
+      </th>
+      <th nz-th>
+        <span>動作</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody nz-tbody>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <tr nz-tbody-tr>
+        <td nz-td nzExpand>
+          <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
+        </td>
+        <td nz-td>{{data.ID}}</td>
+        <td nz-td>{{data.RoomNo}}</td>
+        <td nz-td>{{data.PowerQty}}</td>
+        <td nz-td>{{data.Payment}}</td>
+        <td nz-td>{{data.TimeOfPayment | amDateFormat: 'YYYY-MM'}}</td>
+        <td nz-td>{{data.CreateUser}}</td>
+        <td nz-td>{{data.CreateDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td nz-td>{{data.ModifyUser}}</td>
+        <td nz-td>{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td nz-td>
+          <span>
+            <a href="#">Delete</a>
+          </span>
+        </td>
+      </tr>
+      <tr nz-tbody-tr *ngIf="data.expand">
+        <td nz-td></td>
+        <td nz-td colspan="6">
+          房客姓名
+          <span nz-table-divider></span>{{data.UserDetail.UserName}}
+          <br>
+          <br> 性別
+          <span nz-table-divider></span>{{data.UserDetail.Sex}}
+          <br>
+          <br> 生日
+          <span nz-table-divider></span>{{data.UserDetail.Birth | amDateFormat:'YYYY-MM-DD'}}
+          <br>
+          <br> Email
+          <span nz-table-divider></span>{{data.UserDetail.Email}}
+          <br>
+          <br> 電話
+          <span nz-table-divider></span>{{data.UserDetail.Phone}}
+          <br>
+          <br> 身分證字號
+          <span nz-table-divider></span>{{data.UserDetail.IDCardNo}}
+          <br>
+          <br> 地址
+          <span nz-table-divider></span>{{data.UserDetail.Address}}
+          <br>
+          <br> 職業
+          <span nz-table-divider></span>{{data.UserDetail.Career}}
+          <br>
+          <br> 緊急聯絡人
+          <span nz-table-divider></span>{{data.UserDetail.ContactUser}}
+          <br>
+          <br> 緊急聯絡人電話
+          <span nz-table-divider></span>{{data.UserDetail.ContactUserPhone}}
+          <br>
+        </td>
+        <td nz-td colspan="6">
+          繳費種類
+          <span nz-table-divider></span>{{data.UserDetail.RentDetail.CalculateType}}
+          <br>
+          <br> 租約起始時間
+          <span nz-table-divider></span>{{data.UserDetail.RentDetail.RentEndDate | amDateFormat:'YYYY-MM-DD'}}
+          <br>
+          <br> 租約結束時間
+          <span nz-table-divider></span>{{data.UserDetail.RentDetail.RentEndDate | amDateFormat:'YYYY-MM-DD'}}
+          <br>
+          <br> 每度電單價
+          <span nz-table-divider></span>{{data.UserDetail.RentDetail.PowerUnitCost}}
+          <br>
+          <br> 每月房租
+          <span nz-table-divider></span>{{data.UserDetail.RentDetail.RentMonthly}}
+          <br>
+          <br> 搬入時間
+          <span nz-table-divider></span>{{data.UserDetail.RentDetail.EnterDate | amDateFormat:'YYYY-MM-DD'}}
+          <br>
+          <br> 搬離時間
+          <span nz-table-divider></span>{{data.UserDetail.RentDetail.LeaveDate | amDateFormat:'YYYY-MM-DD'}}
+          <br>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+<nz-pagination class="float-right" [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" nzSize="small" (nzPageIndexChange)="pageChange($event)"
+  nzShowQuickJumper nzShowTotal>
+</nz-pagination>
