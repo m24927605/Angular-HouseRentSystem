@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PayFlowVM } from '../view-models/pay-flow-vm';
 import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { PayFlowService } from '../pay-flow.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pay-flow',
@@ -10,6 +11,7 @@ import { PayFlowService } from '../pay-flow.service';
 })
 export class PayFlowComponent implements OnInit {
   _loading: boolean;
+  searchType: string = '';
   inputValue: string = '';
   data: PayFlowVM[] = [];
   pageSize = 10;
@@ -19,11 +21,12 @@ export class PayFlowComponent implements OnInit {
   constructor(
     private service: PayFlowService,
     private message: NzMessageService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private route: ActivatedRoute
   ) { }
 
-  getData(input, size, current) {
-    this.service.getAllRentDetail(input, size, current).subscribe(
+  getData(searchType, input, size, current) {
+    this.service.getAllPayFlow(searchType, input, size, current).subscribe(
       result => {
         this.data = result.data;
         this.pageSize = +result.size;
@@ -45,16 +48,32 @@ export class PayFlowComponent implements OnInit {
       return this.message.error('請輸入搜尋條件!');
     }
     this._loading = true;
-    this.getData(this.inputValue, this.pageSize, 1);
+    this.searchType = 'RoomNo';
+    this.getData(this.searchType, this.inputValue, this.pageSize, 1);
   }
 
   pageChange(page) {
     if (this.data.length > 0) {
-      this.getData(this.inputValue, this.pageSize, page);
+      this.getData(this.searchType, this.inputValue, this.pageSize, page);
     }
   }
 
   ngOnInit() {
-    this.getData(this.inputValue, this.pageSize, this.currentPage);
+    this.route
+      .queryParams
+      .subscribe(params => {
+        if (params['UserID']) {
+          this.inputValue = params['UserID'];
+          this.searchType = 'UserID';
+        }
+        if (params['RoomNo']) {
+          this.inputValue = params['RoomNo'];
+          this.searchType = 'RoomNo';
+        }
+        if (this.inputValue && this.searchType) {
+          this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
+        }
+      });
+    this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
   }
 }

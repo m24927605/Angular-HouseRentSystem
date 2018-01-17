@@ -1,11 +1,10 @@
 <br>
 <div>
   <div class="search-bar inline-block">
-    <span>查詢：</span>
     <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
     <button nz-button [nzType]="'primary'" (click)="search()">
       <i class="anticon anticon-search"></i>
-      <span>Search</span>
+      <span>查詢</span>
     </button>
   </div>
 </div>
@@ -44,9 +43,6 @@
       <th nz-th>
         <span>修改時間</span>
       </th>
-      <th nz-th>
-        <span>動作</span>
-      </th>
     </tr>
   </thead>
   <tbody nz-tbody>
@@ -65,15 +61,10 @@
         <td nz-td>{{data.CreateDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td nz-td>{{data.ModifyUser}}</td>
         <td nz-td>{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td nz-td>
-          <span>
-            <a href="#">Delete</a>
-          </span>
-        </td>
       </tr>
       <tr nz-tbody-tr *ngIf="data.expand">
         <td nz-td></td>
-        <td nz-td colspan="6">
+        <td nz-td colspan="3">
           <h2>房客資訊</h2>
           <br>
           <br>

@@ -8,7 +8,10 @@ export class PayFlowService {
 
   constructor(private dataAccessService: DataAccessService) { }
 
-  getAllRentDetail(input, pageSize, currentPage): Observable<Page<PayFlowVM>> {
-    return this.dataAccessService.getData(`/payFlow/${pageSize}/${currentPage}?RoomNo=${input}`);
+  getAllPayFlow(searchType,input, pageSize, currentPage): Observable<Page<PayFlowVM>> {
+    if(searchType && input){
+      return this.dataAccessService.getData(`/payFlow/${pageSize}/${currentPage}?${searchType}=${input}`);
+    }
+    return this.dataAccessService.getData(`/payFlow/${pageSize}/${currentPage}`);  
   }
 }

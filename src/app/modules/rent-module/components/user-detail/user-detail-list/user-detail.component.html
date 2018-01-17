@@ -1,11 +1,10 @@
 <br>
 <div>
   <div class="search-bar inline-block">
-    <span>查詢：</span>
-    <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
+    <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房客姓名"></nz-input>
     <button nz-button [nzType]="'primary'" (click)="search()">
       <i class="anticon anticon-search"></i>
-      <span>Search</span>
+      <span>查詢</span>
     </button>
   </div>
 </div>
@@ -67,7 +66,7 @@
         <td nz-td>{{data.LineID}}</td>
         <td nz-td>
           <span>
-            <a href="#">Delete</a>
+            <a routerLink="/rent/payflow" [queryParams]="{UserID: data.UserID}">查看繳費紀錄</a>
           </span>
         </td>
       </tr>

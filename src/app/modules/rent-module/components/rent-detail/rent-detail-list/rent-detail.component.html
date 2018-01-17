@@ -1,11 +1,10 @@
 <br>
 <div>
   <div class="search-bar inline-block">
-    <span>查詢：</span>
     <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
     <button nz-button [nzType]="'primary'" (click)="search()">
       <i class="anticon anticon-search"></i>
-      <span>Search</span>
+      <span>查詢</span>
     </button>
   </div>
 </div>
@@ -55,7 +54,7 @@
         <td nz-td>{{data.LeaveDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td>
           <span>
-            <a href="#">Delete</a>
+            <a routerLink="/rent/payflow" [queryParams]="{RoomNo: data.RoomNo}">查詢繳費紀錄</a>
           </span>
         </td>
       </tr>
@@ -63,8 +62,8 @@
         <td nz-td></td>
         <td nz-td colspan="3">
           <h2>房客資訊</h2>
-          <br>
-          <br> 性別
+          <br> 
+          性別
           <span nz-table-divider></span>{{data.UserDetails[0].Sex}}
           <br>
           <br> 生日
@@ -93,8 +92,7 @@
           <br>
         </td>
         <td nz-td colspan="6">
-          <h2>繳交狀況</h2>
-          <br>
+          <h2>該房客繳交狀況</h2>
           <br>
           <ng-template ngFor let-item [ngForOf]="data.UserDetails[0].PayFlows">
             房號

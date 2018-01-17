@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { CookieModule } from 'ngx-cookie';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_LOCALE, zhTW } from 'ng-zorro-antd';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -24,7 +24,7 @@ import { DataAccessService } from './shared/services/collection';
     AppComponent
   ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     FormsModule,
@@ -35,7 +35,7 @@ import { DataAccessService } from './shared/services/collection';
     NgZorroAntdModule.forRoot(),
     SharedModule
   ],
-  providers: [
-  ]
+  providers: [{ provide: NZ_LOCALE, useValue: zhTW }],
+
 })
 export class AppModule { }
