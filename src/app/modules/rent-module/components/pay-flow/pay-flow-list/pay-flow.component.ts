@@ -1,25 +1,23 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RentDetailService } from './rent-detail.service';
-import { NzNotificationService, NzMessageService } from 'ng-zorro-antd';
-import { RentDetailVM } from './view-models/rent-detail-vm';
+import { PayFlowVM } from '../view-models/pay-flow-vm';
+import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
+import { PayFlowService } from '../pay-flow.service';
 
 @Component({
-  selector: 'app-rent-detail',
-  templateUrl: './rent-detail.component.html',
-  styleUrls: ['./rent-detail.component.css']
+  selector: 'app-pay-flow',
+  templateUrl: './pay-flow.component.html',
+  styleUrls: ['./pay-flow.component.css']
 })
-export class RentDetailComponent implements OnInit {
+export class PayFlowComponent implements OnInit {
   _loading: boolean;
   inputValue: string = '';
-  data: RentDetailVM[] = [];
+  data: PayFlowVM[] = [];
   pageSize = 10;
   currentPage = 1;
   total = 0;
 
   constructor(
-    private service: RentDetailService,
+    private service: PayFlowService,
     private message: NzMessageService,
     private notification: NzNotificationService
   ) { }

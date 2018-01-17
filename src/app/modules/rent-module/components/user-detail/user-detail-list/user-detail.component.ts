@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { PayFlowVM } from './view-models/pay-flow-vm';
+import { UserDetailVM } from '../view-models/user-detail-vm';
+import { UserDetailService } from '../user-detail.service';
 import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
-import { PayFlowService } from './pay-flow.service';
 
 @Component({
-  selector: 'app-pay-flow',
-  templateUrl: './pay-flow.component.html',
-  styleUrls: ['./pay-flow.component.css']
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
 })
-export class PayFlowComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
   _loading: boolean;
   inputValue: string = '';
-  data: PayFlowVM[] = [];
+  data: UserDetailVM[] = [];
   pageSize = 10;
   currentPage = 1;
   total = 0;
 
   constructor(
-    private service: PayFlowService,
+    private service: UserDetailService,
     private message: NzMessageService,
     private notification: NzNotificationService
   ) { }
 
   getData(input, size, current) {
-    this.service.getAllRentDetail(input, size, current).subscribe(
+    this.service.getAllUserDetail(input, size, current).subscribe(
       result => {
         this.data = result.data;
         this.pageSize = +result.size;
@@ -57,4 +57,5 @@ export class PayFlowComponent implements OnInit {
   ngOnInit() {
     this.getData(this.inputValue, this.pageSize, this.currentPage);
   }
+
 }

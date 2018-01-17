@@ -1,29 +1,31 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { UserDetailVM } from './view-models/user-detail-vm';
-import { UserDetailService } from './user-detail.service';
-import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
+import { RentDetailService } from '../rent-detail.service';
+import { NzNotificationService, NzMessageService } from 'ng-zorro-antd';
+import { RentDetailVM } from '../view-models/rent-detail-vm';
 
 @Component({
-  selector: 'app-user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.css']
+  selector: 'app-rent-detail',
+  templateUrl: './rent-detail.component.html',
+  styleUrls: ['./rent-detail.component.css']
 })
-export class UserDetailComponent implements OnInit {
+export class RentDetailComponent implements OnInit {
   _loading: boolean;
   inputValue: string = '';
-  data: UserDetailVM[] = [];
+  data: RentDetailVM[] = [];
   pageSize = 10;
   currentPage = 1;
   total = 0;
 
   constructor(
-    private service: UserDetailService,
+    private service: RentDetailService,
     private message: NzMessageService,
     private notification: NzNotificationService
   ) { }
 
   getData(input, size, current) {
-    this.service.getAllUserDetail(input, size, current).subscribe(
+    this.service.getAllRentDetail(input, size, current).subscribe(
       result => {
         this.data = result.data;
         this.pageSize = +result.size;
@@ -57,5 +59,4 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.getData(this.inputValue, this.pageSize, this.currentPage);
   }
-
 }
