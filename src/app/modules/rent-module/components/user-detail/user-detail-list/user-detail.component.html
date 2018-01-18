@@ -65,6 +65,8 @@
         <td nz-td>{{data.Email}}</td>
         <td nz-td>{{data.LineID}}</td>
         <td nz-td>
+          <a routerLink="/rent/payflow" [queryParams]="{RoomNo: data.RoomNo}">編輯</a>
+          <span nz-table-divider></span>
           <span>
             <a routerLink="/rent/payflow" [queryParams]="{UserID: data.UserID}">查看繳費紀錄</a>
           </span>

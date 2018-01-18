@@ -1,6 +1,10 @@
 <br>
 <div>
-  <div class="search-bar inline-block">
+    <ng-template *ngIf="searchType" ngFor let-data [ngForOf]="nzTable.data" let-i = "index">
+  <h2 *ngIf="searchType=='UserID' && i==0">房客{{data.UserName}}繳費紀錄</h2>
+  <h2 *ngIf="searchType=='RoomNo' && i==0">房號{{data.RoomNo}}繳費紀錄</h2>
+    </ng-template>
+  <div class="search-bar inline-block" *ngIf="!searchType">
     <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
     <button nz-button [nzType]="'primary'" (click)="search()">
       <i class="anticon anticon-search"></i>
@@ -43,6 +47,9 @@
       <th nz-th>
         <span>修改時間</span>
       </th>
+      <th nz-th>
+          <span>動作</span>
+        </th>
     </tr>
   </thead>
   <tbody nz-tbody>
@@ -61,6 +68,11 @@
         <td nz-td>{{data.CreateDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td nz-td>{{data.ModifyUser}}</td>
         <td nz-td>{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td nz-td>
+            <span>
+              <a routerLink="/rent/payflow" [queryParams]="{UserID: data.UserID}">編輯</a>
+            </span>
+          </td>
       </tr>
       <tr nz-tbody-tr *ngIf="data.expand">
         <td nz-td></td>

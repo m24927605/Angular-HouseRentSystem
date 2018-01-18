@@ -33,6 +33,7 @@ export class PayFlowComponent implements OnInit {
         this.currentPage = +result.current;
         this.total = +result.total;
         this._loading = false;
+        this.inputValue='';
       },
       err => {
         this.notification.create('error', '錯誤', err, { nzDuration: 0 });
@@ -50,6 +51,7 @@ export class PayFlowComponent implements OnInit {
     this._loading = true;
     this.searchType = 'RoomNo';
     this.getData(this.searchType, this.inputValue, this.pageSize, 1);
+    this.searchType = '';
   }
 
   pageChange(page) {
@@ -73,7 +75,10 @@ export class PayFlowComponent implements OnInit {
         if (this.inputValue && this.searchType) {
           this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
         }
+        if(!this.inputValue){
+          this.searchType='';
+        }
+        this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
       });
-    this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
   }
 }

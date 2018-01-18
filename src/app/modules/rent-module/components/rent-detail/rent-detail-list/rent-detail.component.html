@@ -53,6 +53,8 @@
         <td nz-td>{{data.EnterDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td>{{data.LeaveDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td>
+          <a routerLink="/rent/payflow" [queryParams]="{RoomNo: data.RoomNo}">編輯</a>
+          <span nz-table-divider></span>
           <span>
             <a routerLink="/rent/payflow" [queryParams]="{RoomNo: data.RoomNo}">查詢繳費紀錄</a>
           </span>
@@ -62,8 +64,7 @@
         <td nz-td></td>
         <td nz-td colspan="3">
           <h2>房客資訊</h2>
-          <br> 
-          性別
+          <br> 性別
           <span nz-table-divider></span>{{data.UserDetails[0].Sex}}
           <br>
           <br> 生日
