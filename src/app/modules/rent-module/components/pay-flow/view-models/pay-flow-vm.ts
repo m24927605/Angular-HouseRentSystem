@@ -1,4 +1,5 @@
 export class PayFlowVM{
+    UserID:number;
     RoomNo:string;
     PowerQty:number;
     Payment:number;
@@ -7,5 +8,6 @@ export class PayFlowVM{
     CreateDate:Date;
     ModifyUser:string;
     ModifyDate:Date;
+    RentPeriod:Date;
     UserDetail:any[];
 }
