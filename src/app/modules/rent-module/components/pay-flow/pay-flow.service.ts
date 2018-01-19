@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { PayFlowVM } from './view-models/pay-flow-vm';
 import { Page } from '../../../../shared/models/paged';
 import { addPayFlowVM } from './view-models/pay-flow-add-vm';
-import { updatePayFlowVM } from './view-models/pay-flow-update-vm';
 @Injectable()
 export class PayFlowService {
 
