@@ -33,7 +33,7 @@ export class PayFlowComponent implements OnInit {
         this.currentPage = +result.current;
         this.total = +result.total;
         this._loading = false;
-        this.inputValue='';
+        this.inputValue = '';
       },
       err => {
         this.notification.create('error', '錯誤', err, { nzDuration: 0 });
@@ -60,6 +60,19 @@ export class PayFlowComponent implements OnInit {
     }
   }
 
+  payMoney(ID) {
+    let data: any = {};
+    this.service.updatePayFlow(data,ID).subscribe(
+      res => {
+        this.notification.create('success', '繳費成功', '');
+        this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
+      },
+      err => {
+        this.notification.create('error', '錯誤', err, { nzDuration: 0 });
+      }
+    );
+  }
+
   ngOnInit() {
     this.route
       .queryParams
@@ -75,8 +88,8 @@ export class PayFlowComponent implements OnInit {
         if (this.inputValue && this.searchType) {
           this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
         }
-        if(!this.inputValue){
-          this.searchType='';
+        if (!this.inputValue) {
+          this.searchType = '';
         }
         this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
       });

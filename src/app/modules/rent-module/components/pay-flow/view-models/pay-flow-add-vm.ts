@@ -3,6 +3,7 @@ export class addPayFlowVM{
     RoomNo:string;
     PowerQty:number;
     Payment:number;
+    CalculateType:number;
     TimeOfPayment:Date;
     RentPeriod:Date;
 }

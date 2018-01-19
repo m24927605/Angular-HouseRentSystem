@@ -22,7 +22,7 @@ import { addPayFlowVM } from '../view-models/pay-flow-add-vm';
 })
 export class PayFlowAddComponent implements OnInit {
   form: FormGroup;
-  newPayFlow: addPayFlowVM;
+  newPayFlow: addPayFlowVM = new addPayFlowVM();
   rentDetail: RentDetailVM[] = [];
   constructor(
     private fb: FormBuilder,
@@ -44,19 +44,19 @@ export class PayFlowAddComponent implements OnInit {
     this.rentDetailService.getAllRentDetail(roomNo, 10, 1).subscribe(
       result => {
         this.rentDetail = result.data;
-        let newObj: any = {};
-        newObj.UserID = this.rentDetail[0].UserID;
-        newObj.RoomNo = data.RoomNo;
-        newObj.PowerQty = data.PowerQty;
-        newObj.Payment = 0;
-        newObj.TimeOfPayment = moment().toDate();
-        newObj.RentPeriod = moment().toDate()
+        this.newPayFlow.UserID = this.rentDetail[0].UserID;
+        this.newPayFlow.CalculateType = this.rentDetail[0].UserDetails[0].CalculateType;
+        this.newPayFlow.RoomNo = data.RoomNo;
+        this.newPayFlow.PowerQty = data.PowerQty;
+        this.newPayFlow.Payment = 0;
+        this.newPayFlow.TimeOfPayment = moment().toDate();
+        this.newPayFlow.RentPeriod = moment().toDate();
 
         if (confirm('確定要送出嗎?')) {
-          this.payFlowService.addPayFlow(newObj).subscribe(
+          this.payFlowService.addPayFlow(this.newPayFlow).subscribe(
             res => {
               this.notification.create('success', '新增成功', '');
-              this.router.navigateByUrl('channel');
+              this.form.reset();
             },
             err => {
               this.notification.create('error', '錯誤', err, { nzDuration: 0 });
@@ -66,7 +66,6 @@ export class PayFlowAddComponent implements OnInit {
       },
       err => {
         this.notification.create('error', '錯誤', err, { nzDuration: 0 });
-      }
-    )
+      })
   }
 }

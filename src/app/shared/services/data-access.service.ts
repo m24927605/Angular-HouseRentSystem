@@ -73,7 +73,7 @@ export class DataAccessService {
       .catch(this.handleError);
   }
 
-  patchData(input: object, url: string): Observable<any[]> {
+  patchData<T>(input: object, url: string): Observable<T> {
     // 呼叫restful API
     return this.http.patch(`${environment.RestApiIP}${url}`, input, this.options)
       .map((response: Response) => {

@@ -1,9 +1,9 @@
 <br>
 <div>
-    <ng-template *ngIf="searchType" ngFor let-data [ngForOf]="nzTable.data" let-i = "index">
-  <h2 *ngIf="searchType=='UserID' && i==0">房客{{data.UserName}}繳費紀錄</h2>
-  <h2 *ngIf="searchType=='RoomNo' && i==0">房號{{data.RoomNo}}繳費紀錄</h2>
-    </ng-template>
+  <ng-template *ngIf="searchType" ngFor let-data [ngForOf]="nzTable.data" let-i="index">
+    <h2 *ngIf="searchType=='UserID' && i==0">房客{{data.UserName}}繳費紀錄</h2>
+    <h2 *ngIf="searchType=='RoomNo' && i==0">房號{{data.RoomNo}}繳費紀錄</h2>
+  </ng-template>
   <div class="search-bar inline-block" *ngIf="!searchType">
     <nz-input [(ngModel)]='inputValue' nzPlaceHolder="房號"></nz-input>
     <button nz-button [nzType]="'primary'" (click)="search()">
@@ -21,13 +21,16 @@
         <span>流水號</span>
       </th>
       <th nz-th>
+        <span>UserID</span>
+      </th>
+      <th nz-th>
         <span>房號</span>
       </th>
       <th nz-th>
         <span>使用電量</span>
       </th>
       <th nz-th>
-        <span>繳交金額</span>
+        <span>應繳金額</span>
       </th>
       <th nz-th>
         <span>租期</span>
@@ -48,8 +51,8 @@
         <span>修改時間</span>
       </th>
       <th nz-th>
-          <span>動作</span>
-        </th>
+        <span>動作</span>
+      </th>
     </tr>
   </thead>
   <tbody nz-tbody>
@@ -59,6 +62,7 @@
           <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
         </td>
         <td nz-td>{{data.ID}}</td>
+        <td nz-td>{{data.UserID}}</td>
         <td nz-td>{{data.RoomNo}}</td>
         <td nz-td>{{data.PowerQty}}</td>
         <td nz-td>{{data.Payment}}</td>
@@ -69,18 +73,17 @@
         <td nz-td>{{data.ModifyUser}}</td>
         <td nz-td>{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td nz-td>
-            <span>
-              <a routerLink="/rent/payflow" [queryParams]="{UserID: data.UserID}">編輯</a>
-            </span>
-          </td>
+          <button nz-button [nzType]="'primary'" (click)="payMoney(data.ID)">
+            <span>繳費</span>
+          </button>
+        </td>
       </tr>
       <tr nz-tbody-tr *ngIf="data.expand">
         <td nz-td></td>
         <td nz-td colspan="3">
           <h2>房客資訊</h2>
           <br>
-          <br>
-          房客姓名
+          <br> 房客姓名
           <span nz-table-divider></span>{{data.UserDetail.UserName}}
           <br>
           <br> 性別
@@ -114,8 +117,7 @@
         <td nz-td colspan="6">
           <h2>租約細節</h2>
           <br>
-          <br>
-          繳費種類
+          <br> 繳費種類
           <span nz-table-divider></span>{{data.UserDetail.RentDetail.CalculateType}}
           <br>
           <br> 租約起始時間
