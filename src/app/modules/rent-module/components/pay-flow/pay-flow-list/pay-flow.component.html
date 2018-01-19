@@ -67,13 +67,20 @@
         <td nz-td>{{data.PowerQty}}</td>
         <td nz-td>{{data.Payment}}</td>
         <td nz-td>{{data.RentPeriod | amDateFormat: 'YYYY-MM'}}</td>
-        <td nz-td>{{data.TimeOfPayment | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td nz-td>
+          <nz-tag *ngIf="data.TimeOfPayment" [nzColor]="'#2db7f5'">
+            {{data.TimeOfPayment | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}
+          </nz-tag>
+        </td>
         <td nz-td>{{data.CreateUser}}</td>
         <td nz-td>{{data.CreateDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td nz-td>{{data.ModifyUser}}</td>
         <td nz-td>{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td nz-td>
-          <button nz-button [nzType]="'primary'" (click)="payMoney(data.ID)">
+          <button *ngIf="data.TimeOfPayment" nz-button [nzType]="'primary'" disabled>
+            <span>繳費</span>
+          </button>
+          <button *ngIf="!data.TimeOfPayment" nz-button [nzType]="'primary'" (click)="payMoney(data.ID)">
             <span>繳費</span>
           </button>
         </td>
