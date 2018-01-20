@@ -7,8 +7,8 @@ import {
     UserDetailComponent,
     ManagerAddComponent,
     PayFlowAddComponent,
-    RentDetailAddComponent,
-    UserDetailAddComponent
+    RentDetailActionComponent,
+    UserDetailActionComponent
 } from './components/rent.collection';
 
 const routes: Routes = [
@@ -17,9 +17,9 @@ const routes: Routes = [
     { path: 'payflow', component: PayFlowComponent },
     { path: 'payflow-add', component: PayFlowAddComponent },
     { path: 'rentDetail', component: RentDetailComponent },
-    { path: 'rentDetail-add', component: RentDetailAddComponent },
+    { path: 'rentDetail-action', component: RentDetailActionComponent },
     { path: 'userDetail', component: UserDetailComponent },
-    { path: 'userDetail-add', component: UserDetailAddComponent },
+    { path: 'userDetail-action', component: UserDetailActionComponent },
 ];
 
 @NgModule({

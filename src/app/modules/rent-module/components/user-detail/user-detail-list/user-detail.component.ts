@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserDetailVM } from '../view-models/user-detail-vm';
 import { UserDetailService } from '../user-detail.service';
 import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,6 +18,7 @@ export class UserDetailComponent implements OnInit {
   total = 0;
 
   constructor(
+    private route:Router,
     private service: UserDetailService,
     private message: NzMessageService,
     private notification: NzNotificationService
@@ -52,6 +54,10 @@ export class UserDetailComponent implements OnInit {
     if (this.data.length > 0) {
       this.getData(this.inputValue, this.pageSize, page);
     }
+  }
+
+  addUserDetail() {
+    this.route.navigateByUrl('/rent/userDetail-action');
   }
 
   ngOnInit() {

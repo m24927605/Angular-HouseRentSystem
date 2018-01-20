@@ -11,4 +11,8 @@ export class RentDetailService {
   getAllRentDetail(input, pageSize, currentPage): Observable<Page<RentDetailVM>> {
     return this.dataAccessService.getData(`/rentDetail/${pageSize}/${currentPage}?RoomNo=${input}`);
   }
+
+  addRentDetail(data:RentDetailVM):Observable<RentDetailVM>{
+    return this.dataAccessService.postData(data, '/rentDetail');
+  }
 }

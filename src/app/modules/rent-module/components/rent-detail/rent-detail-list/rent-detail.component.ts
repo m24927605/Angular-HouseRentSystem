@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { RentDetailService } from '../rent-detail.service';
 import { NzNotificationService, NzMessageService } from 'ng-zorro-antd';
 import { RentDetailVM } from '../view-models/rent-detail-vm';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rent-detail',
@@ -19,6 +20,7 @@ export class RentDetailComponent implements OnInit {
   total = 0;
 
   constructor(
+    private route: Router,
     private service: RentDetailService,
     private message: NzMessageService,
     private notification: NzNotificationService
@@ -54,6 +56,10 @@ export class RentDetailComponent implements OnInit {
     if (this.data.length > 0) {
       this.getData(this.inputValue, this.pageSize, page);
     }
+  }
+
+  addRentDetail() {
+    this.route.navigateByUrl('/rent/rentDetail-action');
   }
 
   ngOnInit() {

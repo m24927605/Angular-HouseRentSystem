@@ -1,0 +1,165 @@
+<br>
+<div nz-row>
+  <div nz-col [nzXs]="{ span: 5, offset: 1 }" [nzLg]="{ span: 6, offset: 2 }">
+  </div>
+  <div nz-col [nzXs]="{ span: 15, offset: 0 }" [nzLg]="{ span: 12, offset: 0 }">
+    <form nz-form [formGroup]="form" (ngSubmit)="submit($event, form.value)">
+      <div nz-form-item nz-row style="text-align:center">
+        <div nz-form-label nz-col [nzSpan]="7">
+          <h1>新增房客</h1>
+        </div>
+      </div>
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>租客姓名</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="UserName" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.UserName.dirty && form.controls.UserName.hasError('required')">請輸入 租客姓名!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>性別</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-select formControlName="Sex" style="width: 120px;" [(ngModel)]="selectedOption" [nzPlaceHolder]="'請選擇性別'" nzAllowClear>
+            <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option" [nzDisabled]="option.disabled">
+            </nz-option>
+          </nz-select>
+          <div nz-form-explain *ngIf="form.controls.Sex.dirty && form.controls.Sex.hasError('required')">請輸入 性別!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>繳費種類</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="CalculateType" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.CalculateType.dirty && form.controls.CalculateType.hasError('required')">請輸入 繳費種類!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>有線電視費用</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="TVCost" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.TVCost.dirty && form.controls.TVCost.hasError('required')">請輸入 有線電視費用!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>生日</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-datepicker formControlName="Birth" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
+          <div nz-form-explain *ngIf="form.controls.Birth.dirty && form.controls.Birth.hasError('required')">請輸入 生日!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>身分證字號</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="IDCardNo" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.IDCardNo.dirty && form.controls.IDCardNo.hasError('required')">請輸入 身分證字號!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>手機號碼</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="Phone" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.Phone.dirty && form.controls.Phone.hasError('required')">請輸入 手機號碼!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>職業</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="Career" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.Career.dirty && form.controls.Career.hasError('required')">請輸入 職業!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>住址</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="Address" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.Address.dirty && form.controls.Address.hasError('required')">請輸入 住址!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>信箱</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="Email" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.Email.dirty && form.controls.Email.hasError('required')">請輸入 信箱!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>LineID</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="LineID" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.LineID.dirty && form.controls.LineID.hasError('required')">請輸入 LineID!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>緊急聯絡人</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="ContactUser" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.ContactUser.dirty && form.controls.ContactUser.hasError('required')">請輸入 緊急聯絡人姓名!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>緊急聯絡人電話</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-input formControlName="ContactUserPhone" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          </nz-input>
+          <div nz-form-explain *ngIf="form.controls.ContactUserPhone.dirty && form.controls.ContactUserPhone.hasError('required')">請輸入 緊急聯絡人電話!</div>
+        </div>
+      </div>
+
+      <div nz-form-item nz-row>
+        <div nz-col [nzOffset]="7" [nzSpan]="12" nz-form-control>
+          <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!form.valid">送出</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div nz-col [nzXs]="{ span: 5, offset: 1 }" [nzLg]="{ span: 6, offset: 2 }">
+  </div>
+</div>

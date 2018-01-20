@@ -1,4 +1,5 @@
 export class UserDetailVM {
+    RoomID:number;
     UserID: number;
     UserName: string;
     Birth: Date;

@@ -16,41 +16,41 @@
 <nz-table #nzTable [nzAjaxData]="data" [nzLoading]="_loading" [nzIsPagination]="false">
   <thead nz-thead>
     <tr>
-      <th nz-th nzExpand></th>
-      <th nz-th>
+      <th nz-th nzExpand style="text-align:center"></th>
+      <th nz-th style="text-align:center">
         <span>流水號</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>UserID</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>房號</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>使用電量</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>應繳金額</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>租期</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>繳交時間</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>新增者</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>新增時間</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>修改者</span>
       </th>
-      <th nz-th>
+      <th nz-th  style="text-align:center">
         <span>修改時間</span>
       </th>
-      <th nz-th>
+      <th nz-th style="text-align:center">
         <span>動作</span>
       </th>
     </tr>
@@ -58,25 +58,28 @@
   <tbody nz-tbody>
     <ng-template ngFor let-data [ngForOf]="nzTable.data">
       <tr nz-tbody-tr>
-        <td nz-td nzExpand>
+        <td nz-td nzExpand style="text-align:center">
           <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
         </td>
-        <td nz-td>{{data.ID}}</td>
-        <td nz-td>{{data.UserID}}</td>
-        <td nz-td>{{data.RoomNo}}</td>
-        <td nz-td>{{data.PowerQty}}</td>
-        <td nz-td>{{data.Payment}}</td>
-        <td nz-td>{{data.RentPeriod | amDateFormat: 'YYYY-MM'}}</td>
-        <td nz-td>
+        <td nz-td style="text-align:center">{{data.ID}}</td>
+        <td nz-td style="text-align:center">{{data.UserID}}</td>
+        <td nz-td style="text-align:center">{{data.RoomNo}}</td>
+        <td nz-td style="text-align:center">{{data.PowerQty}}</td>
+        <td nz-td style="text-align:center">{{data.Payment}}</td>
+        <td nz-td style="text-align:center">{{data.RentPeriod | amDateFormat: 'YYYY-MM'}}</td>
+        <td nz-td style="text-align:center">
           <nz-tag *ngIf="data.TimeOfPayment" [nzColor]="'#2db7f5'">
             {{data.TimeOfPayment | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}
           </nz-tag>
+          <nz-tag *ngIf="!data.TimeOfPayment" [nzColor]="'#f50'">
+            <span>尚未繳交</span>
+          </nz-tag>
         </td>
-        <td nz-td>{{data.CreateUser}}</td>
-        <td nz-td>{{data.CreateDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td nz-td>{{data.ModifyUser}}</td>
-        <td nz-td>{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td nz-td>
+        <td nz-td style="text-align:center">{{data.CreateUser}}</td>
+        <td nz-td style="text-align:center">{{data.CreateDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td nz-td style="text-align:center">{{data.ModifyUser}}</td>
+        <td nz-td style="text-align:center">{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td nz-td style="text-align:center">
           <button *ngIf="data.TimeOfPayment" nz-button [nzType]="'primary'" disabled>
             <span>繳費</span>
           </button>
@@ -86,8 +89,8 @@
         </td>
       </tr>
       <tr nz-tbody-tr *ngIf="data.expand">
-        <td nz-td></td>
-        <td nz-td colspan="3">
+        <td nz-td style="text-align:center"></td>
+        <td nz-td colspan="3" style="vertical-align: text-top;">
           <h2>房客資訊</h2>
           <br>
           <br> 房客姓名
@@ -121,7 +124,7 @@
           <span nz-table-divider></span>{{data.UserDetail.ContactUserPhone}}
           <br>
         </td>
-        <td nz-td colspan="6">
+        <td nz-td colspan="6" style="vertical-align: text-top;">
           <h2>租約細節</h2>
           <br>
           <br> 繳費種類

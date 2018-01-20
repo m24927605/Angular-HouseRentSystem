@@ -5,8 +5,8 @@ import {
   RentDetailComponent,
   UserDetailComponent,
   PayFlowAddComponent,
-  RentDetailAddComponent,
-  UserDetailAddComponent,
+  RentDetailActionComponent,
+  UserDetailActionComponent,
   ManagerAddComponent
 } from './components/rent.collection';
 import { NgModule } from '@angular/core';
@@ -41,8 +41,8 @@ export function httpFactory(backend: XHRBackend, options: RequestOptions) {
     RentDetailComponent,
     UserDetailComponent,
     PayFlowAddComponent,
-    RentDetailAddComponent,
-    UserDetailAddComponent,
+    RentDetailActionComponent,
+    UserDetailActionComponent,
     ManagerAddComponent
   ],
   providers: [{

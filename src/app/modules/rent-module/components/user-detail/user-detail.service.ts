@@ -8,7 +8,15 @@ export class UserDetailService {
 
   constructor(private dataAccessService: DataAccessService) { }
 
+  getAllUserDetailNoPage(): Observable<Page<UserDetailVM>> {
+    return this.dataAccessService.getData(`/userDetail`);
+  }
+
   getAllUserDetail(input, pageSize, currentPage): Observable<Page<UserDetailVM>> {
     return this.dataAccessService.getData(`/userDetail/${pageSize}/${currentPage}?UserName=${input}`);
+  }
+
+  addUserDetail(data: UserDetailVM): Observable<UserDetailVM> {
+    return this.dataAccessService.postData(data, '/userDetail');
   }
 }
