@@ -17,7 +17,7 @@
         <div nz-col [nzSpan]="12" nz-form-control>
           <nz-select formControlName="UserID" style="width: 120px;" [(ngModel)]="selectedOption" [nzPlaceHolder]="'請選擇房客姓名'"
             nzAllowClear>
-            <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option" [nzDisabled]="option.disabled">
+            <nz-option *ngFor="let option of options" [nzLabel]="option.UserName" [nzValue]="option" [nzDisabled]="option.disabled">
             </nz-option>
           </nz-select>
           <div nz-form-explain *ngIf="form.controls.UserID.dirty && form.controls.UserID.hasError('required')">請選擇 房客姓名!</div>

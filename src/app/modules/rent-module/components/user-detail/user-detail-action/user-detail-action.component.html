@@ -9,6 +9,20 @@
           <h1>新增房客</h1>
         </div>
       </div>
+
+      <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>性別</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-select formControlName="Sex" style="width: 120px;" [(ngModel)]="SexSelectedOption" [nzPlaceHolder]="'請選擇性別'" nzAllowClear>
+            <nz-option *ngFor="let option of SexOptions" [nzLabel]="option.label" [nzValue]="option" [nzDisabled]="option.disabled">
+            </nz-option>
+          </nz-select>
+          <div nz-form-explain *ngIf="form.controls.Sex.dirty && form.controls.Sex.hasError('required')">請輸入 性別!</div>
+        </div>
+      </div>
+
       <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzSpan]="7">
           <label nz-form-item-required>租客姓名</label>
@@ -22,24 +36,14 @@
 
       <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzSpan]="7">
-          <label nz-form-item-required>性別</label>
-        </div>
-        <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-select formControlName="Sex" style="width: 120px;" [(ngModel)]="selectedOption" [nzPlaceHolder]="'請選擇性別'" nzAllowClear>
-            <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option" [nzDisabled]="option.disabled">
-            </nz-option>
-          </nz-select>
-          <div nz-form-explain *ngIf="form.controls.Sex.dirty && form.controls.Sex.hasError('required')">請輸入 性別!</div>
-        </div>
-      </div>
-
-      <div nz-form-item nz-row>
-        <div nz-form-label nz-col [nzSpan]="7">
           <label nz-form-item-required>繳費種類</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-input formControlName="CalculateType" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
-          </nz-input>
+          <nz-select formControlName="CalculateType" [nzSize]="'large'" [(ngModel)]="CalculateTypeSelectedOption" [nzPlaceHolder]="'請選擇繳費種類'"
+            nzAllowClear>
+            <nz-option *ngFor="let option of CalculateTypeOption" [nzLabel]="option.label" [nzValue]="option" [nzDisabled]="option.disabled">
+            </nz-option>
+          </nz-select>
           <div nz-form-explain *ngIf="form.controls.CalculateType.dirty && form.controls.CalculateType.hasError('required')">請輸入 繳費種類!</div>
         </div>
       </div>
@@ -106,17 +110,6 @@
           <nz-input formControlName="Address" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.Address.dirty && form.controls.Address.hasError('required')">請輸入 住址!</div>
-        </div>
-      </div>
-
-      <div nz-form-item nz-row>
-        <div nz-form-label nz-col [nzSpan]="7">
-          <label nz-form-item-required>信箱</label>
-        </div>
-        <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-input formControlName="Email" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
-          </nz-input>
-          <div nz-form-explain *ngIf="form.controls.Email.dirty && form.controls.Email.hasError('required')">請輸入 信箱!</div>
         </div>
       </div>
 

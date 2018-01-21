@@ -46,7 +46,7 @@ export class RentDetailActionComponent implements OnInit {
         oldArray = result;
         let tmpOptionArray: any = [];
         oldArray.forEach(function (element) {
-          const newKeys = { UserID: "value", UserName: "label" };
+          const newKeys = { UserID: "value"};
           let renamedObj = renameKeys(element, newKeys);
           tmpOptionArray.push(renamedObj);
         });
@@ -105,6 +105,7 @@ export class RentDetailActionComponent implements OnInit {
         res => {
           this.notification.create('success', '新增成功', '');
           this.form.reset();
+          this.router.navigateByUrl('/rent/rentDetail');
         },
         err => {
           this.notification.create('error', '錯誤', err, { nzDuration: 0 });

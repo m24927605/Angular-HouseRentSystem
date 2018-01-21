@@ -24,9 +24,6 @@
         <span>房客姓名</span>
       </th>
       <th nz-th style="text-align:center">
-        <span>繳費種類</span>
-      </th>
-      <th nz-th style="text-align:center">
         <span>租約起始時間</span>
       </th>
       <th nz-th style="text-align:center">
@@ -51,7 +48,6 @@
         </td>
         <td nz-td style="text-align:center">{{data.RoomNo}}</td>
         <td nz-td style="text-align:center">{{data.UserDetails[0].UserName}}</td>
-        <td nz-td style="text-align:center">{{data.CalculateType}}</td>
         <td nz-td style="text-align:center">{{data.RentStartDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">{{data.RentEndDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">{{data.EnterDate | amDateFormat: 'YYYY-MM-DD'}}</td>
@@ -68,14 +64,21 @@
         <td nz-td style="text-align:center"></td>
         <td nz-td colspan="3" style="vertical-align: text-top;">
           <h2>房客資訊</h2>
+          <br>
+          <div [ngSwitch]="data.UserDetails[0].CalculateType">
+            繳費種類
+            <p nz-table-divider></p>
+            <p *ngSwitchCase="1">正常繳</p>
+            <p *ngSwitchCase="2">6個月躉繳減一個月的1/4房租</p>
+            <p *ngSwitchCase="3">正常繳+有線電視費用</p>
+            <p *ngSwitchCase="4">6個月躉繳減一個月的1/4房租+有線電視費用</p>
+            <p *ngSwitchDefault>無此繳費種類</p>
+          </div>
           <br> 性別
           <span nz-table-divider></span>{{data.UserDetails[0].Sex}}
           <br>
           <br> 生日
           <span nz-table-divider></span>{{data.UserDetails[0].Birth | amDateFormat:'YYYY-MM-DD'}}
-          <br>
-          <br> Email
-          <span nz-table-divider></span>{{data.UserDetails[0].Email}}
           <br>
           <br> 電話
           <span nz-table-divider></span>{{data.UserDetails[0].Phone}}
@@ -95,6 +98,9 @@
           <br> 緊急聯絡人電話
           <span nz-table-divider></span>{{data.UserDetails[0].ContactUserPhone}}
           <br>
+          <br> lineID
+          <span nz-table-divider></span>{{data.UserDetails[0].LineID}}
+          <br>
         </td>
         <td nz-td colspan="6" style="vertical-align: text-top;">
           <h2>該房客繳交狀況</h2>
@@ -107,7 +113,13 @@
             <br>租期
             <span nz-table-divider></span>{{item.RentPeriod| amDateFormat:'YYYY-MM'}}
             <br>繳交時間
-            <span nz-table-divider></span>{{item.TimeOfPayment| amDateFormat:'YYYY-MM-DD'}}
+            <span nz-table-divider></span>
+            <nz-tag *ngIf="item.TimeOfPayment" [nzColor]="'#2db7f5'">
+              {{item.TimeOfPayment | amDateFormat: 'YYYY-MM-DD HH:mm:ss'}}
+            </nz-tag>
+            <nz-tag *ngIf="!item.TimeOfPayment" [nzColor]="'#f50'">
+              <span>尚未繳交</span>
+            </nz-tag>
             <br> 繳交金額
             <span nz-table-divider></span>{{item.Payment}}
             <br>

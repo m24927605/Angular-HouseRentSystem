@@ -10,8 +10,9 @@ export class UserDetailVM {
     ContactUserPhone: string;
     Career: string;
     Address: string;
-    Email: string;
     LineID: string;
+    CalculateType:number;
+    TVCost:number;
     CreateUser: string;
     CreateDate: Date;
     ModifyUser: string;

@@ -23,8 +23,10 @@ import { UserDetailVM } from '../../user-detail/view-models/user-detail-vm';
 export class UserDetailActionComponent implements OnInit {
   form: FormGroup;
   newUserDetail: UserDetailVM = new UserDetailVM();
-  options = [];
-  selectedOption;
+  CalculateTypeOption = [];
+  CalculateTypeSelectedOption;
+  SexOptions = [];
+  SexSelectedOption;
   constructor(
     private fb: FormBuilder,
     private userDetailService: UserDetailService,
@@ -33,7 +35,14 @@ export class UserDetailActionComponent implements OnInit {
 
   ngOnInit() {
 
-    this.options = [
+    this.CalculateTypeOption = [
+      { value: 1, label: '正常繳' },
+      { value: 2, label: '6個月躉繳減一個月的1/4房租' },
+      { value: 3, label: '正常繳+有線電視費用' },
+      { value: 4, label: '6個月躉繳減一個月的1/4房租+有線電視費用' }
+    ]
+
+    this.SexOptions = [
       { value: '男', label: '男' },
       { value: '女', label: '女' }
     ]
@@ -48,7 +57,6 @@ export class UserDetailActionComponent implements OnInit {
       Phone: [null, Validators.required],
       Career: [null, Validators.required],
       Address: [null, Validators.required],
-      Email: [null, Validators.required],
       LineID: [null, Validators.required],
       ContactUser: [null, Validators.required],
       ContactUserPhone: [null, Validators.required],
@@ -68,11 +76,13 @@ export class UserDetailActionComponent implements OnInit {
   submit(event, data: UserDetailVM) {
     if (confirm('確定要送出嗎?')) {
       data.RoomID = null;
-      data.Sex = this.selectedOption.value;
+      data.CalculateType=this.CalculateTypeSelectedOption.value;
+      data.Sex = this.SexSelectedOption.value;
       this.userDetailService.addUserDetail(data).subscribe(
         res => {
           this.notification.create('success', '新增成功', '');
           this.form.reset();
+          this.router.navigateByUrl('/rent/userDetail');
         },
         err => {
           this.notification.create('error', '錯誤', err, { nzDuration: 0 });
