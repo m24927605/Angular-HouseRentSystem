@@ -27,6 +27,7 @@ export class UserDetailActionComponent implements OnInit {
   CalculateTypeSelectedOption;
   SexOptions = [];
   SexSelectedOption;
+  TVCostisDisabled: boolean;
   constructor(
     private fb: FormBuilder,
     private userDetailService: UserDetailService,
@@ -51,15 +52,15 @@ export class UserDetailActionComponent implements OnInit {
       UserName: [null, Validators.required],
       Sex: [null, Validators.required],
       CalculateType: [null, Validators.required],
-      TVCost: [null, Validators.required],
-      Birth: [null, Validators.required],
-      IDCardNo: [null, Validators.required],
-      Phone: [null, Validators.required],
+      TVCost: [null, [this.TVCostValidator]],
+      Birth: [null, [Validators.required, this.BirthValidator]],
+      IDCardNo: [null, [Validators.required, this.IDCardNoValidator]],
+      Phone: [null, [Validators.required, this.PhoneValidator]],
       Career: [null, Validators.required],
       Address: [null, Validators.required],
-      LineID: [null, Validators.required],
+      LineID: [null, [Validators.required, this.LineIDValidator]],
       ContactUser: [null, Validators.required],
-      ContactUserPhone: [null, Validators.required],
+      ContactUserPhone: [null, [Validators.required, this.ContactUserPhoneValidator]],
     });
   }
 
@@ -73,10 +74,62 @@ export class UserDetailActionComponent implements OnInit {
     }
   };
 
+  TVCostValidator = (control: FormControl): any => {
+    if (+control.value === 0) {
+      return { TVCostType: true, error: true }
+    }
+  };
+
+  IDCardNoValidator = (control: FormControl): any => {
+    const Regex_query = /([A-Z]|[a-z])\d{9}/;
+    if (!Regex_query.test(control.value)) {
+      return { IDCardNoContent: true, error: true }
+    }
+  }
+
+  PhoneValidator = (control: FormControl): any => {
+    const Regex_query = /^09\d{2}-?\d{3}-?\d{3}$/;
+    if (!Regex_query.test(control.value)) {
+      return { Phone: true, error: true }
+    }
+  }
+
+  ContactUserPhoneValidator = (control: FormControl): any => {
+    const Regex_query = /^09\d{2}-?\d{3}-?\d{3}$/;
+    if (!Regex_query.test(control.value)) {
+      return { ContactUserPhone: true, error: true }
+    }
+  }
+
+  LineIDValidator = (control: FormControl): any => {
+    const Regex_query = /^[A-Za-z0-9]+$/;
+    if (!Regex_query.test(control.value)) {
+      return { LineID: true, error: true }
+    }
+  }
+
+  Birth = (control: FormControl): any => {
+    const Regex_query = /^(((?:19|20)[0-9]{2})[- -.](0?[1-9]|1[012])[- -.](0?[1-9]|[12][0-9]|3[01]))*$/;
+    if (!Regex_query.test(control.value)) {
+      return { Birth: true, error: true }
+    }
+  }
+
+  isTVCostDisable(CalculateTypeSelectedOption) {
+    if (CalculateTypeSelectedOption) {
+      if (CalculateTypeSelectedOption.value === 1 || CalculateTypeSelectedOption.value === 2) {
+        this.TVCostisDisabled = true;
+      }
+      else {
+        this.TVCostisDisabled = false;
+      }
+    }
+  }
+
   submit(event, data: UserDetailVM) {
     if (confirm('確定要送出嗎?')) {
       data.RoomID = null;
-      data.CalculateType=this.CalculateTypeSelectedOption.value;
+      data.CalculateType = this.CalculateTypeSelectedOption.value;
       data.Sex = this.SexSelectedOption.value;
       this.userDetailService.addUserDetail(data).subscribe(
         res => {

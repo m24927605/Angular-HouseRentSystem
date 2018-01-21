@@ -24,6 +24,9 @@
         <span>房客姓名</span>
       </th>
       <th nz-th style="text-align:center">
+          <span>每月房租</span>
+        </th>
+      <th nz-th style="text-align:center">
         <span>租約起始時間</span>
       </th>
       <th nz-th style="text-align:center">
@@ -48,6 +51,7 @@
         </td>
         <td nz-td style="text-align:center">{{data.RoomNo}}</td>
         <td nz-td style="text-align:center">{{data.UserDetails[0].UserName}}</td>
+        <td nz-td style="text-align:center">{{data.RentMonthly}}</td>
         <td nz-td style="text-align:center">{{data.RentStartDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">{{data.RentEndDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">{{data.EnterDate | amDateFormat: 'YYYY-MM-DD'}}</td>
@@ -64,6 +68,9 @@
         <td nz-td style="text-align:center"></td>
         <td nz-td colspan="3" style="vertical-align: text-top;">
           <h2>房客資訊</h2>
+          <br> 有線電視費用
+          <span nz-table-divider></span>{{data.UserDetails[0].TVCost}}
+          <br>
           <br>
           <div [ngSwitch]="data.UserDetails[0].CalculateType">
             繳費種類
