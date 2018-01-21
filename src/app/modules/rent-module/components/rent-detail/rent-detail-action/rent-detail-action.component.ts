@@ -46,7 +46,7 @@ export class RentDetailActionComponent implements OnInit {
         oldArray = result;
         let tmpOptionArray: any = [];
         oldArray.forEach(function (element) {
-          const newKeys = { UserID: "value"};
+          const newKeys = { UserID: "value" };
           let renamedObj = renameKeys(element, newKeys);
           tmpOptionArray.push(renamedObj);
         });
@@ -59,13 +59,13 @@ export class RentDetailActionComponent implements OnInit {
 
     this.form = this.fb.group({
       UserID: [null, Validators.required],
-      RoomNo: [null, Validators.required],
-      RentStartDate: [null, [this.RentStartDateValidator]],
-      RentEndDate: [null, [this.RentEndDateValidator]],
-      PowerUnitCost: [null, Validators.required],
-      RentMonthly: [null, Validators.required],
-      EnterDate: [null, [this.EnterDateValidator]],
-      LeaveDate: [null, [this.LeaveDateValidator]],
+      RoomNo: [null, [Validators.required, this.RoomNoValidator]],
+      RentStartDate: [null, [Validators.required]],
+      RentEndDate: [null, [Validators.required]],
+      PowerUnitCost: [null, [Validators.required, this.PowerUnitCostValidator]],
+      RentMonthly: [null, [Validators.required, this.RentMonthlyValidator]],
+      EnterDate: [null, [Validators.required]],
+      LeaveDate: [null, [Validators.required]],
     });
   }
 
@@ -73,27 +73,21 @@ export class RentDetailActionComponent implements OnInit {
     return this.form.controls[name];
   }
 
-  RentStartDateValidator = (control: FormControl): any => {
-    if (!control.value) {
-      return { required: true, error: true }
+  RoomNoValidator = (control: FormControl): any => {
+    if (!+control.value) {
+      return { RoomNo: true, error: true }
+    }
+  }
+
+  PowerUnitCostValidator = (control: FormControl): any => {
+    if (+control.value === 0 || +control.value < 0) {
+      return { PowerUnitCost: true, error: true }
     }
   };
 
-  RentEndDateValidator = (control: FormControl): any => {
-    if (!control.value) {
-      return { required: true, error: true }
-    }
-  };
-
-  EnterDateValidator = (control: FormControl): any => {
-    if (!control.value) {
-      return { required: true, error: true }
-    }
-  };
-
-  LeaveDateValidator = (control: FormControl): any => {
-    if (!control.value) {
-      return { required: true, error: true }
+  RentMonthlyValidator = (control: FormControl): any => {
+    if (+control.value === 0 || +control.value < 0) {
+      return { RentMonthly: true, error: true }
     }
   };
 

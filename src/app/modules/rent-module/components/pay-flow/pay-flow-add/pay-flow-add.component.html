@@ -17,6 +17,7 @@
           <nz-input formControlName="RoomNo" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.RoomNo.dirty && form.controls.RoomNo.hasError('required')">請輸入 房號!</div>
+          <div nz-form-explain *ngIf="getFormControl('RoomNo').dirty&&getFormControl('RoomNo').hasError('RoomNo')">請輸入 數字!</div>
         </div>
       </div>
 
@@ -25,7 +26,7 @@
           <label nz-form-item-required>當前度數</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-input formControlName="PowerQty" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          <nz-input formControlName="PowerQty" [nzType]="'number'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.PowerQty.dirty && form.controls.PowerQty.hasError('required')">請輸入 使用電量!</div>
         </div>

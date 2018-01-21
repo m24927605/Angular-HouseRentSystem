@@ -34,9 +34,25 @@ export class PayFlowAddComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      RoomNo: ['', Validators.required],
-      PowerQty: [0, Validators.required]
+      RoomNo: ['', [Validators.required, this.RoomNoValidator]],
+      PowerQty: [0, [Validators.required, this.PowerQtyValidator]]
     });
+  }
+
+  getFormControl(name) {
+    return this.form.controls[name];
+  }
+
+  RoomNoValidator = (control: FormControl): any => {
+    if (!+control.value) {
+      return { RoomNo: true, error: true }
+    }
+  }
+
+  PowerQtyValidator = (control: FormControl): any => {
+    if (!+control.value) {
+      return { RoomNo: true, error: true }
+    }
   }
 
   submit(event, data: PowerVM) {

@@ -32,6 +32,7 @@
           <nz-input formControlName="RoomNo" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.RoomNo.dirty && form.controls.RoomNo.hasError('required')">請輸入 房間號碼!</div>
+          <div nz-form-explain *ngIf="getFormControl('RoomNo').dirty&&getFormControl('RoomNo').hasError('RoomNo')">請輸入 數字!</div>
         </div>
       </div>
 
@@ -41,7 +42,7 @@
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
           <nz-datepicker formControlName="RentStartDate" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
-          <div nz-form-explain *ngIf="getFormControl('RentStartDate').dirty&&getFormControl('RentStartDate').hasError('required')">請輸入租約起始日期!</div>
+          <div nz-form-explain *ngIf="form.controls.RentStartDate.dirty && form.controls.RentStartDate.hasError('required')">請輸入 租約起始時間!</div>
         </div>
       </div>
 
@@ -51,7 +52,7 @@
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
           <nz-datepicker formControlName="RentEndDate" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
-          <div nz-form-explain *ngIf="getFormControl('RentEndDate').dirty&&getFormControl('RentEndDate').hasError('required')">請輸入租約結束日期!</div>
+          <div nz-form-explain *ngIf="form.controls.RentEndDate.dirty && form.controls.RentEndDate.hasError('required')">請輸入 租約起始時間!</div>
         </div>
       </div>
 
@@ -60,9 +61,10 @@
           <label nz-form-item-required>每度電價</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-input formControlName="PowerUnitCost" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          <nz-input formControlName="PowerUnitCost" [nzType]="'number'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.PowerUnitCost.dirty && form.controls.PowerUnitCost.hasError('required')">請輸入 每度電價!</div>
+          <div nz-form-explain *ngIf="getFormControl('PowerUnitCost').dirty&&getFormControl('PowerUnitCost').hasError('PowerUnitCost')">請輸入大於0的數字!</div>
         </div>
       </div>
 
@@ -71,29 +73,30 @@
           <label nz-form-item-required>每月房租</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-input formControlName="RentMonthly" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          <nz-input formControlName="RentMonthly" [nzType]="'float'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.RentMonthly.dirty && form.controls.RentMonthly.hasError('required')">請輸入 每月房租!</div>
+          <div nz-form-explain *ngIf="getFormControl('RentMonthly').dirty&&getFormControl('RentMonthly').hasError('RentMonthly')">請輸入大於0的數字!</div>
         </div>
       </div>
 
       <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzSpan]="7">
-          <label nz-form-item-required>搬入時間</label>
+          <label nz-form-item-required>搬入日期</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
           <nz-datepicker formControlName="EnterDate" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
-          <div nz-form-explain *ngIf="getFormControl('EnterDate').dirty&&getFormControl('EnterDate').hasError('required')">請輸入搬入日期!</div>
+          <div nz-form-explain *ngIf="form.controls.EnterDate.dirty && form.controls.EnterDate.hasError('required')">請輸入 搬入日期!</div>
         </div>
       </div>
 
       <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzSpan]="7">
-          <label nz-form-item-required>搬離時間</label>
+          <label nz-form-item-required>搬離日期</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
           <nz-datepicker formControlName="LeaveDate" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
-          <div nz-form-explain *ngIf="getFormControl('LeaveDate').dirty&&getFormControl('LeaveDate').hasError('required')">請輸入搬離日期!</div>
+          <div nz-form-explain *ngIf="form.controls.LeaveDate.dirty && form.controls.LeaveDate.hasError('required')">請輸入 搬離日期!</div>
         </div>
       </div>
 
