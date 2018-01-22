@@ -6,7 +6,7 @@
     <form nz-form [formGroup]="form" (ngSubmit)="submit($event, form.value)">
       <div nz-form-item nz-row style="text-align:center">
         <div nz-form-label nz-col [nzSpan]="7">
-          <h1>新增房客</h1>
+          <h1>{{Title}}</h1>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
         <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
           <nz-select formControlName="CalculateType" [nzSize]="'large'" [(ngModel)]="CalculateTypeSelectedOption" (nzOpenChange)="isTVCostDisable(CalculateTypeSelectedOption)"
             [nzPlaceHolder]="'請選擇繳費種類'" nzAllowClear>
-            <nz-option *ngFor="let option of CalculateTypeOption" [nzLabel]="option.label" [nzValue]="option" [nzDisabled]="option.disabled">
+            <nz-option *ngFor="let option of CalculateTypeOptions" [nzLabel]="option.label" [nzValue]="option" [nzDisabled]="option.disabled">
             </nz-option>
           </nz-select>
           <div nz-form-explain *ngIf="form.controls.CalculateType.dirty && form.controls.CalculateType.hasError('required')">請輸入 繳費種類!</div>
@@ -53,9 +53,9 @@
           <label nz-form-item-required>有線電視費用</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-          <nz-input formControlName="TVCost" [nzType]="'number'" [nzPlaceHolder]="''" [nzSize]="'large'" [nzDisabled]="TVCostisDisabled">
+          <nz-input formControlName="TVCost" [nzType]="'number'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
-          <div nz-form-explain *ngIf="getFormControl('TVCost').dirty&&getFormControl('TVCost').hasError('TVCostType')">請輸入 大於0的數字!</div>
+          <div nz-form-explain *ngIf="getFormControl('TVCost').dirty&&getFormControl('TVCost').hasError('TVCost')">請輸入 大於0的數字!</div>
         </div>
       </div>
 
@@ -72,10 +72,10 @@
       </div>
 
       <div nz-form-item nz-row>
-        <div nz-form-label nz-col [nzSpan]="7" nzHasFeedback>
+        <div nz-form-label nz-col [nzSpan]="7">
           <label nz-form-item-required>身分證字號</label>
         </div>
-        <div nz-col [nzSpan]="12" nz-form-control>
+        <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
           <nz-input formControlName="IDCardNo" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.IDCardNo.dirty && form.controls.IDCardNo.hasError('required')">請輸入 身分證字號!</div>

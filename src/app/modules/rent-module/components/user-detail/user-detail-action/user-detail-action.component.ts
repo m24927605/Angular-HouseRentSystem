@@ -8,12 +8,13 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RentDetailService } from '../../rent-detail/rent-detail.service';
 import { RentDetailVM } from '../../rent-detail/view-models/rent-detail-vm';
 import { UserDetailService } from '../../user-detail/user-detail.service';
 import { UserDetailVM } from '../../user-detail/view-models/user-detail-vm';
-
+import * as filter from 'array-filter';
+import * as underscore from 'underscore';
 
 @Component({
   selector: 'app-user-detail-action',
@@ -23,20 +24,24 @@ import { UserDetailVM } from '../../user-detail/view-models/user-detail-vm';
 export class UserDetailActionComponent implements OnInit {
   form: FormGroup;
   newUserDetail: UserDetailVM = new UserDetailVM();
-  CalculateTypeOption = [];
+  CalculateTypeOptions = [];
   CalculateTypeSelectedOption;
   SexOptions = [];
   SexSelectedOption;
+  Params: string;
+  Title: string;
   TVCostisDisabled: boolean;
   constructor(
     private fb: FormBuilder,
     private userDetailService: UserDetailService,
     private notification: NzNotificationService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
 
-    this.CalculateTypeOption = [
+    this.CalculateTypeOptions = [
       { value: 1, label: '正常繳' },
       { value: 2, label: '6個月躉繳減一個月的1/4房租' },
       { value: 3, label: '正常繳+有線電視費用' },
@@ -47,8 +52,8 @@ export class UserDetailActionComponent implements OnInit {
       { value: '男', label: '男' },
       { value: '女', label: '女' }
     ]
-
-    this.form = this.fb.group({
+    let formObj = {};
+    formObj = {
       UserName: [null, Validators.required],
       Sex: [null, Validators.required],
       CalculateType: [null, Validators.required],
@@ -61,7 +66,36 @@ export class UserDetailActionComponent implements OnInit {
       LineID: [null, [Validators.required, this.LineIDValidator]],
       ContactUser: [null, Validators.required],
       ContactUserPhone: [null, [Validators.required, this.ContactUserPhoneValidator]],
-    });
+    }
+    this.form = this.fb.group(formObj);//初始化
+
+    this.route
+      .queryParams
+      .subscribe(params => {
+        if (params['UserID']) {
+          this.Title = "編輯房客";
+          this.Params = params['UserID'];
+          this.getData(this.Params).subscribe((result) => {
+            let UserSex = underscore.where(this.SexOptions, { value: result.Sex });
+            let UserPayType = underscore.where(this.CalculateTypeOptions, { value: result.CalculateType });
+            this.SexSelectedOption = UserSex[0];
+            console.log(this.SexSelectedOption);
+            this.CalculateTypeSelectedOption = UserPayType[0];
+            Object.keys(formObj).forEach(function (key) {
+              if (key !== 'Sex' || 'CalculateType') {
+                formObj[key][0] = result[key];
+              }
+            });
+            this.form = this.fb.group(formObj);//將UserDetail表的資料load到form裏頭
+          })
+        } else {
+          this.Title = "新增房客";
+        }
+      });
+  }
+
+  getData(UserID) {
+    return this.userDetailService.getOneUserDetail(UserID);
   }
 
   getFormControl(name) {
@@ -75,8 +109,8 @@ export class UserDetailActionComponent implements OnInit {
   };
 
   TVCostValidator = (control: FormControl): any => {
-    if (+control.value === 0) {
-      return { TVCostType: true, error: true }
+    if (+control.value === 0 || +control.value < 0) {
+      return { TVCost: true, error: true }
     }
   };
 
@@ -118,10 +152,10 @@ export class UserDetailActionComponent implements OnInit {
   isTVCostDisable(CalculateTypeSelectedOption) {
     if (CalculateTypeSelectedOption) {
       if (CalculateTypeSelectedOption.value === 1 || CalculateTypeSelectedOption.value === 2) {
-        this.TVCostisDisabled = true;
+        this.form.controls['TVCost'].disable();
       }
       else {
-        this.TVCostisDisabled = false;
+        this.form.controls['TVCost'].enable();
       }
     }
   }
@@ -131,15 +165,28 @@ export class UserDetailActionComponent implements OnInit {
       data.RoomID = null;
       data.CalculateType = this.CalculateTypeSelectedOption.value;
       data.Sex = this.SexSelectedOption.value;
-      this.userDetailService.addUserDetail(data).subscribe(
-        res => {
-          this.notification.create('success', '新增成功', '');
-          this.form.reset();
-          this.router.navigateByUrl('/rent/userDetail');
-        },
-        err => {
-          this.notification.create('error', '錯誤', err, { nzDuration: 0 });
-        });
+      if (this.Params) {
+        this.userDetailService.editUserDetail(this.Params, data).subscribe(
+          res => {
+            this.notification.create('success', '編輯成功', '');
+            this.form.reset();
+            this.router.navigateByUrl('/rent/userDetail');
+          },
+          err => {
+            this.notification.create('error', '錯誤', err, { nzDuration: 0 });
+          });
+      }
+      else {
+        this.userDetailService.addUserDetail(data).subscribe(
+          res => {
+            this.notification.create('success', '新增成功', '');
+            this.form.reset();
+            this.router.navigateByUrl('/rent/userDetail');
+          },
+          err => {
+            this.notification.create('error', '錯誤', err, { nzDuration: 0 });
+          });
+      }
     }
   }
 

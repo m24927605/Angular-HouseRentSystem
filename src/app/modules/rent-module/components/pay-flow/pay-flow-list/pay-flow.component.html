@@ -21,8 +21,8 @@
         <span>流水號</span>
       </th>
       <th nz-th style="text-align:center">
-          <span>房號</span>
-        </th>
+        <span>房號</span>
+      </th>
       <th nz-th style="text-align:center">
         <span>房客姓名</span>
       </th>
@@ -99,21 +99,8 @@
           <br> 性別
           <span nz-table-divider></span>{{data.UserDetail.Sex}}
           <br>
-          <br>
-          <div [ngSwitch]="data.UserDetail.CalculateType">
-            繳費種類
-            <span nz-table-divider></span>
-            <p *ngSwitchCase="1">正常繳</p>
-            <p *ngSwitchCase="2">6個月躉繳減一個月的1/4房租</p>
-            <p *ngSwitchCase="3">正常繳+有線電視費用</p>
-            <p *ngSwitchCase="4">6個月躉繳減一個月的1/4房租+有線電視費用</p>
-            <p *ngSwitchDefault>無此繳費種類</p>
-          </div>
           <br> 生日
           <span nz-table-divider></span>{{data.UserDetail.Birth | amDateFormat:'YYYY-MM-DD'}}
-          <br>
-          <br> Email
-          <span nz-table-divider></span>{{data.UserDetail.Email}}
           <br>
           <br> 電話
           <span nz-table-divider></span>{{data.UserDetail.Phone}}
@@ -143,12 +130,26 @@
           <br> 租約結束時間
           <span nz-table-divider></span>{{data.UserDetail.RentDetail.RentEndDate | amDateFormat:'YYYY-MM-DD'}}
           <br>
+          <br>
+          <div [ngSwitch]="data.UserDetail.CalculateType">
+            繳費種類
+            <span nz-table-divider></span>
+            <p *ngSwitchCase="1">正常繳</p>
+            <p *ngSwitchCase="2">6個月躉繳減一個月的1/4房租</p>
+            <p *ngSwitchCase="3">正常繳+有線電視費用</p>
+            <p *ngSwitchCase="4">6個月躉繳減一個月的1/4房租+有線電視費用</p>
+            <p *ngSwitchDefault>無此繳費種類</p>
+          </div>
           <br> 每度電單價
           <span nz-table-divider></span>{{data.UserDetail.RentDetail.PowerUnitCost}}
           <br>
           <br> 每月房租
           <span nz-table-divider></span>{{data.UserDetail.RentDetail.RentMonthly}}
           <br>
+          <br> 有線電視費用
+          <span nz-table-divider></span>
+          <p *ngIf="data.UserDetail.TVCost">{{data.UserDetail.TVCost}}</p>
+          <p *ngIf="!data.UserDetail.TVCost">無</p>
           <br> 搬入時間
           <span nz-table-divider></span>{{data.UserDetail.RentDetail.EnterDate | amDateFormat:'YYYY-MM-DD'}}
           <br>

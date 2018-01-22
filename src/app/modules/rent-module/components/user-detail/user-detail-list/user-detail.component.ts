@@ -13,7 +13,7 @@ export class UserDetailComponent implements OnInit {
   _loading: boolean;
   inputValue: string = '';
   data: UserDetailVM[] = [];
-  pageSize = 10;
+  pageSize = 5;
   currentPage = 1;
   total = 0;
 
@@ -63,5 +63,4 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.getData(this.inputValue, this.pageSize, this.currentPage);
   }
-
 }

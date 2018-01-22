@@ -15,7 +15,7 @@ export class RentDetailComponent implements OnInit {
   _loading: boolean;
   inputValue: string = '';
   data: RentDetailVM[] = [];
-  pageSize = 10;
+  pageSize = 5;
   currentPage = 1;
   total = 0;
 

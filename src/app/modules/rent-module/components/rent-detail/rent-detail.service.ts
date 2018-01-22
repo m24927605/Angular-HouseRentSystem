@@ -8,11 +8,19 @@ export class RentDetailService {
 
   constructor(private dataAccessService: DataAccessService) { }
 
+  getOneRentDetail(RoomID): Observable<RentDetailVM> {
+    return this.dataAccessService.getData(`/rentDetail/${RoomID}`);
+  }
+
   getAllRentDetail(input, pageSize, currentPage): Observable<Page<RentDetailVM>> {
     return this.dataAccessService.getData(`/rentDetail/${pageSize}/${currentPage}?RoomNo=${input}`);
   }
 
-  addRentDetail(data:RentDetailVM):Observable<RentDetailVM>{
+  addRentDetail(data: RentDetailVM): Observable<RentDetailVM> {
     return this.dataAccessService.postData(data, '/rentDetail');
+  }
+
+  editRentDetail(RoomID, data: RentDetailVM): Observable<RentDetailVM> {
+    return this.dataAccessService.patchData(data, `/rentDetail/${RoomID}`);
   }
 }

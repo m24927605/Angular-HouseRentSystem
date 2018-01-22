@@ -8,6 +8,10 @@ export class UserDetailService {
 
   constructor(private dataAccessService: DataAccessService) { }
 
+  getOneUserDetail(UserID): Observable<UserDetailVM> {
+    return this.dataAccessService.getData(`/UserDetail/${UserID}`);
+  }
+
   getAllUserDetailNoPage(): Observable<Page<UserDetailVM>> {
     return this.dataAccessService.getData(`/userDetail`);
   }
@@ -18,5 +22,9 @@ export class UserDetailService {
 
   addUserDetail(data: UserDetailVM): Observable<UserDetailVM> {
     return this.dataAccessService.postData(data, '/userDetail');
+  }
+
+  editUserDetail(UserID,data:UserDetailVM):Observable<UserDetailVM>{
+    return this.dataAccessService.patchData(data, `/userDetail/${UserID}`);
   }
 }

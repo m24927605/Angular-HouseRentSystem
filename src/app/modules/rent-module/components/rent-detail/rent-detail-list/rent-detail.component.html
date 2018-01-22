@@ -18,14 +18,17 @@
     <tr>
       <th nz-th nzExpand style="text-align:center"></th>
       <th nz-th style="text-align:center">
+        <span>流水號</span>
+      </th>
+      <th nz-th style="text-align:center">
         <span>房號</span>
       </th>
       <th nz-th style="text-align:center">
         <span>房客姓名</span>
       </th>
       <th nz-th style="text-align:center">
-          <span>每月房租</span>
-        </th>
+        <span>每月房租</span>
+      </th>
       <th nz-th style="text-align:center">
         <span>租約起始時間</span>
       </th>
@@ -49,28 +52,31 @@
         <td nz-td nzExpand>
           <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
         </td>
+        <td nz-td style="text-align:center">{{data.RoomID}}</td>
         <td nz-td style="text-align:center">{{data.RoomNo}}</td>
-        <td nz-td style="text-align:center">{{data.UserDetails[0].UserName}}</td>
+        <td *ngIf="data.UserDetails[0]" nz-td style="text-align:center">{{data.UserDetails[0].UserName}}</td>
+        <td *ngIf="!data.UserDetails[0]" nz-td style="text-align:center"></td>
         <td nz-td style="text-align:center">{{data.RentMonthly}}</td>
         <td nz-td style="text-align:center">{{data.RentStartDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">{{data.RentEndDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">{{data.EnterDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">{{data.LeaveDate | amDateFormat: 'YYYY-MM-DD'}}</td>
         <td nz-td style="text-align:center">
-          <a routerLink="/rent/payflow" [queryParams]="{RoomNo: data.RoomNo}">編輯</a>
+          <a routerLink="/rent/rentDetail-action" [queryParams]="{RoomID: data.RoomID}">編輯</a>
           <span nz-table-divider></span>
           <span>
             <a routerLink="/rent/payflow" [queryParams]="{RoomNo: data.RoomNo}">查詢繳費金流</a>
           </span>
         </td>
       </tr>
-      <tr nz-tbody-tr *ngIf="data.expand">
+      <tr nz-tbody-tr *ngIf="data.expand && data.UserDetails[0]">
         <td nz-td style="text-align:center"></td>
         <td nz-td colspan="3" style="vertical-align: text-top;">
           <h2>房客資訊</h2>
           <br> 有線電視費用
-          <span nz-table-divider></span>{{data.UserDetails[0].TVCost}}
-          <br>
+          <span nz-table-divider></span>
+          <p *ngIf="!data.UserDetails[0].TVCost">無</p>
+          <p *ngIf="data.UserDetails[0].TVCost">{{data.UserDetails[0].TVCost}}</p>
           <br>
           <div [ngSwitch]="data.UserDetails[0].CalculateType">
             繳費種類
