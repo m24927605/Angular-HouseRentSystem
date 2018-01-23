@@ -1,3 +1,57 @@
-<p>
-  manager works!
-</p>
+<br>
+<div>
+  <button nz-button [nzType]="'primary'" (click)="addManager()">
+    <i class="anticon anticon-plus"></i>
+    <span>新增管理員</span>
+  </button>
+</div>
+<br>
+<nz-table #nzTable [nzAjaxData]="data" [nzLoading]="_loading" [nzIsPagination]="false">
+  <thead nz-thead>
+    <tr>
+      <th nz-th style="text-align:center">
+        <span>流水號</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>管理員姓名</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>新增者</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>新增日期</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>修改者</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>修改日期</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>角色</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>動作</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody nz-tbody>
+    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+      <tr nz-tbody-tr>
+        <td nz-td style="text-align:center">{{data.BackerID}}</td>
+        <td nz-td style="text-align:center">{{data.Name}}</td>
+        <td nz-td style="text-align:center">{{data.CreateUser}}</td>
+        <td nz-td style="text-align:center">{{data.CreateDate | amDateFormat: 'YYYY-MM-DD'}}</td>
+        <td nz-td style="text-align:center">{{data.ModifyUser}}</td>
+        <td nz-td style="text-align:center">{{data.ModifyDate | amDateFormat: 'YYYY-MM-DD'}}</td>
+        <td nz-td style="text-align:center">{{data.Role | RolePipe}}</td>
+        <td nz-td style="text-align:center">
+          <a routerLink="/rent/manager-action" [queryParams]="{BackerID: data.BackerID}">修改密碼</a>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+<nz-pagination class="float-right" [nzPageIndex]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" nzSize="small" (nzPageIndexChange)="pageChange($event)"
+  nzShowQuickJumper nzShowTotal>
+</nz-pagination>

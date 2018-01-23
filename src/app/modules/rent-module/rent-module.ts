@@ -7,7 +7,7 @@ import {
   PayFlowAddComponent,
   RentDetailActionComponent,
   UserDetailActionComponent,
-  ManagerAddComponent
+  ManagerActionComponent
 } from './components/rent.collection';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.modules';
@@ -22,6 +22,8 @@ import { CommonModule } from '@angular/common';
 import { UserDetailService } from './components/user-detail/user-detail.service';
 import { PayFlowService } from './components/pay-flow/pay-flow.service';
 import { StatusPipe } from './components/user-detail/user.detail.pipe';
+import { ManagerService } from './components/manager/manager.service';
+import { RolePipe } from './components/manager/manager.pipe';
 
 export function httpFactory(backend: XHRBackend, options: RequestOptions) {
   return new HttpHelperService(backend, options);
@@ -44,8 +46,9 @@ export function httpFactory(backend: XHRBackend, options: RequestOptions) {
     PayFlowAddComponent,
     RentDetailActionComponent,
     UserDetailActionComponent,
-    ManagerAddComponent,
-    StatusPipe
+    ManagerActionComponent,
+    StatusPipe,
+    RolePipe
   ],
   providers: [{
     provide: HttpHelperService,
@@ -56,7 +59,8 @@ export function httpFactory(backend: XHRBackend, options: RequestOptions) {
     CookieHelperService,
     RentDetailService,
     UserDetailService,
-    PayFlowService
+    PayFlowService,
+    ManagerService
   ],
 })
 export class RentModule { }

@@ -5,7 +5,7 @@ import {
     PayFlowComponent,
     RentDetailComponent,
     UserDetailComponent,
-    ManagerAddComponent,
+    ManagerActionComponent,
     PayFlowAddComponent,
     RentDetailActionComponent,
     UserDetailActionComponent
@@ -13,7 +13,7 @@ import {
 
 const routes: Routes = [
     { path: 'manager', component: ManagerComponent },
-    { path: 'manager-add', component: ManagerAddComponent },
+    { path: 'manager-action', component: ManagerActionComponent },
     { path: 'payflow', component: PayFlowComponent },
     { path: 'payflow-add', component: PayFlowAddComponent },
     { path: 'rentDetail', component: RentDetailComponent },
