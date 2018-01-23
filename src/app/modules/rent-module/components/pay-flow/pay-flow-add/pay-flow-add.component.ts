@@ -59,25 +59,30 @@ export class PayFlowAddComponent implements OnInit {
     let roomNo = data.RoomNo;
     this.rentDetailService.getAllRentDetail(roomNo, 10, 1).subscribe(
       result => {
-        this.rentDetail = result.data;
-        this.newPayFlow.UserID = this.rentDetail[0].UserID;
-        this.newPayFlow.CalculateType = this.rentDetail[0].UserDetails[0].CalculateType;
-        this.newPayFlow.RoomNo = data.RoomNo;
-        this.newPayFlow.PowerQty = data.PowerQty;
-        this.newPayFlow.Payment = 0;
-        this.newPayFlow.TimeOfPayment = moment().toDate();
-        this.newPayFlow.RentPeriod = moment().toDate();
+        if (result.data.length===0) {
+          this.notification.create('error', '錯誤', "無此房間", { nzDuration: 0 });
+        }
+        else {
+          this.rentDetail = result.data;
+          this.newPayFlow.UserID = this.rentDetail[0].UserID;
+          this.newPayFlow.CalculateType = this.rentDetail[0].UserDetails[0].CalculateType;
+          this.newPayFlow.RoomNo = data.RoomNo;
+          this.newPayFlow.PowerQty = data.PowerQty;
+          this.newPayFlow.Payment = 0;
+          this.newPayFlow.TimeOfPayment = moment().toDate();
+          this.newPayFlow.RentPeriod = moment().toDate();
 
-        if (confirm('確定要送出嗎?')) {
-          this.payFlowService.addPayFlow(this.newPayFlow).subscribe(
-            res => {
-              this.notification.create('success', '新增成功', '');
-              this.form.reset();
-            },
-            err => {
-              this.notification.create('error', '錯誤', err, { nzDuration: 0 });
-            }
-          );
+          if (confirm('確定要送出嗎?')) {
+            this.payFlowService.addPayFlow(this.newPayFlow).subscribe(
+              res => {
+                this.notification.create('success', '新增成功', '');
+                this.form.reset();
+              },
+              err => {
+                this.notification.create('error', '錯誤', err, { nzDuration: 0 });
+              }
+            );
+          }
         }
       },
       err => {

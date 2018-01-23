@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserDetailService } from './components/user-detail/user-detail.service';
 import { PayFlowService } from './components/pay-flow/pay-flow.service';
+import { StatusPipe } from './components/user-detail/user.detail.pipe';
 
 export function httpFactory(backend: XHRBackend, options: RequestOptions) {
   return new HttpHelperService(backend, options);
@@ -43,7 +44,8 @@ export function httpFactory(backend: XHRBackend, options: RequestOptions) {
     PayFlowAddComponent,
     RentDetailActionComponent,
     UserDetailActionComponent,
-    ManagerAddComponent
+    ManagerAddComponent,
+    StatusPipe
   ],
   providers: [{
     provide: HttpHelperService,

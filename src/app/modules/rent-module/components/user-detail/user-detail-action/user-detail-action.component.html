@@ -153,6 +153,20 @@
         </div>
       </div>
 
+      <div nz-form-item nz-row *ngIf="Params">
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>狀態</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control>
+          <nz-switch formControlName="Status" [ngModel]="Status" (click)="changeStatus()">
+            <i class=" anticon anticon-check" checked></i>
+            <i class=" anticon anticon-cross" unchecked></i>
+          </nz-switch>
+          <nz-tag *ngIf="Status" [nzColor]="'#87d068'">入住中</nz-tag>
+          <nz-tag *ngIf="!Status" [nzColor]="'#f50'">搬離</nz-tag>
+        </div>
+      </div>
+
       <div nz-form-item nz-row>
         <div nz-col [nzOffset]="7" [nzSpan]="12" nz-form-control>
           <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!form.valid">送出</button>

@@ -48,6 +48,9 @@
         <span>LineID</span>
       </th>
       <th nz-th style="text-align:center">
+        <span>狀態</span>
+      </th>
+      <th nz-th style="text-align:center">
         <span>動作</span>
       </th>
     </tr>
@@ -68,6 +71,10 @@
         <td nz-td style="text-align:center">{{data.ContactUser}}</td>
         <td nz-td style="text-align:center">{{data.ContactUserPhone}}</td>
         <td nz-td style="text-align:center">{{data.LineID}}</td>
+        <td nz-td style="text-align:center">
+          <nz-tag *ngIf="data.Status" [nzColor]="'#87d068'">{{data.Status | StatusPipe}}</nz-tag>
+          <nz-tag *ngIf="!data.Status" [nzColor]="'#f50'">{{data.Status | StatusPipe}}</nz-tag>
+        </td>
         <td nz-td style="text-align:center">
           <a routerLink="/rent/userDetail-action" [queryParams]="{UserID: data.UserID}">編輯</a>
           <span nz-table-divider></span>

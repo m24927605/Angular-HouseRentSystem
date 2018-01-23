@@ -60,7 +60,7 @@ export class RentDetailActionComponent implements OnInit {
           this.Title = "編輯房間";
           this.Params = params['RoomID'];
           this.getData(this.Params).subscribe((result) => {
-            if (result.UserID) {
+            if (result.UserID && result.UserDetails[0].Status) {
               this.options = [{ value: result.UserID, UserName: result.UserDetails[0].UserName }];
               this.selectedOption = this.options[0];
             } else {
@@ -139,19 +139,15 @@ export class RentDetailActionComponent implements OnInit {
       }
       if (!data.EnterDate) {
         data.EnterDate = null;
-        console.log(data.EnterDate);
       }
       if (!data.LeaveDate) {
         data.LeaveDate = null;
-        console.log(data.LeaveDate);
       }
       if (!data.RentStartDate) {
         data.RentStartDate = null;
-        console.log(data.RentStartDate);
       }
       if (!data.RentEndDate) {
         data.RentEndDate = null;
-        console.log(data.RentEndDate);
       }
       this.route
         .queryParams

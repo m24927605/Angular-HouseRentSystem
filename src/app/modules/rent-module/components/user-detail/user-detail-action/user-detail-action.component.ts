@@ -31,6 +31,7 @@ export class UserDetailActionComponent implements OnInit {
   Params: string;
   Title: string;
   TVCostisDisabled: boolean;
+  Status: boolean;
   constructor(
     private fb: FormBuilder,
     private userDetailService: UserDetailService,
@@ -66,6 +67,7 @@ export class UserDetailActionComponent implements OnInit {
       LineID: [null, [Validators.required, this.LineIDValidator]],
       ContactUser: [null, Validators.required],
       ContactUserPhone: [null, [Validators.required, this.ContactUserPhoneValidator]],
+      Status: [null],
     }
     this.form = this.fb.group(formObj);//初始化
 
@@ -76,10 +78,10 @@ export class UserDetailActionComponent implements OnInit {
           this.Title = "編輯房客";
           this.Params = params['UserID'];
           this.getData(this.Params).subscribe((result) => {
+            this.Status = !!result.Status;
             let UserSex = underscore.where(this.SexOptions, { value: result.Sex });
             let UserPayType = underscore.where(this.CalculateTypeOptions, { value: result.CalculateType });
             this.SexSelectedOption = UserSex[0];
-            console.log(this.SexSelectedOption);
             this.CalculateTypeSelectedOption = UserPayType[0];
             Object.keys(formObj).forEach(function (key) {
               if (key !== 'Sex' || 'CalculateType') {
@@ -90,6 +92,7 @@ export class UserDetailActionComponent implements OnInit {
           })
         } else {
           this.Title = "新增房客";
+          this.Status = true;
         }
       });
   }
@@ -160,11 +163,16 @@ export class UserDetailActionComponent implements OnInit {
     }
   }
 
+  changeStatus() {
+    this.Status = !this.Status;
+  }
+
   submit(event, data: UserDetailVM) {
     if (confirm('確定要送出嗎?')) {
       data.RoomID = null;
       data.CalculateType = this.CalculateTypeSelectedOption.value;
       data.Sex = this.SexSelectedOption.value;
+      data.Status = +this.Status;
       if (this.Params) {
         this.userDetailService.editUserDetail(this.Params, data).subscribe(
           res => {

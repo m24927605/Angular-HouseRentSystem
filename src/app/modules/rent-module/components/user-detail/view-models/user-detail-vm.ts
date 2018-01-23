@@ -18,5 +18,6 @@ export class UserDetailVM {
     ModifyUser: string;
     ModifyDate: Date;
     RentDetail: any[];
+    Status:number;
     constructor() { };
 }
