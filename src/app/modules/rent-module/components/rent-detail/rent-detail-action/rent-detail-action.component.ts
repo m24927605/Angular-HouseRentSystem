@@ -156,9 +156,27 @@ export class RentDetailActionComponent implements OnInit {
           if (param) {
             this.rentDetailService.editRentDetail(param, data).subscribe(
               res => {
-                this.notification.create('success', '編輯成功', '');
-                this.form.reset();
-                this.router.navigateByUrl('/rent/rentDetail');
+                if (data.LeaveDate) {
+                  let addObj: RentDetailVM = new RentDetailVM();
+                  addObj.RoomNo = data.RoomNo;
+                  addObj.PowerUnitCost = data.PowerUnitCost;
+                  addObj.RentMonthly = data.RentMonthly;
+                  addObj.EnterDate = null;
+                  addObj.LeaveDate = null;
+                  addObj.RentStartDate = null;
+                  addObj.RentEndDate = null;
+                  console.log(addObj);
+                  this.rentDetailService.addRentDetail(addObj).subscribe(res => {
+                    this.notification.create('success', '編輯成功', '');
+                    this.form.reset();
+                    this.router.navigateByUrl('/rent/rentDetail');
+                  });
+                }
+                else {
+                  this.notification.create('success', '編輯成功', '');
+                  this.form.reset();
+                  this.router.navigateByUrl('/rent/rentDetail');
+                }
               },
               err => {
                 this.notification.create('error', '錯誤', err, { nzDuration: 0 });

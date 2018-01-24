@@ -88,6 +88,12 @@ export class UserDetailActionComponent implements OnInit {
                 formObj[key][0] = result[key];
               }
             });
+            if (result.CalculateType === 1 || result.CalculateType === 2) {
+              this.form.controls['TVCost'].disable();
+            }
+            else {
+              this.form.controls['TVCost'].enable();
+            }
             this.form = this.fb.group(formObj);//將UserDetail表的資料load到form裏頭
           })
         } else {
@@ -112,7 +118,7 @@ export class UserDetailActionComponent implements OnInit {
   };
 
   TVCostValidator = (control: FormControl): any => {
-    if (+control.value === 0 || +control.value < 0) {
+    if (+control.value < 0) {
       return { TVCost: true, error: true }
     }
   };

@@ -16,6 +16,10 @@ export class RentDetailService {
     return this.dataAccessService.getData(`/rentDetail/${pageSize}/${currentPage}?RoomNo=${input}`);
   }
 
+  getAllRentNoPage(input): Observable<RentDetailVM[]> {
+    return this.dataAccessService.getData(`/rentDetail/NoPage/?RoomNo=${input}`);
+  }
+
   addRentDetail(data: RentDetailVM): Observable<RentDetailVM> {
     return this.dataAccessService.postData(data, '/rentDetail');
   }

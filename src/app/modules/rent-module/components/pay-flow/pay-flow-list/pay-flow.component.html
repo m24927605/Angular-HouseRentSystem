@@ -27,7 +27,16 @@
         <span>房客姓名</span>
       </th>
       <th nz-th style="text-align:center">
-        <span>使用電量</span>
+        <span>當前電力度數</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>本期使用電力度數</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>有線電視費用</span>
+      </th>
+      <th nz-th style="text-align:center">
+        <span>每月房租</span>
       </th>
       <th nz-th style="text-align:center">
         <span>應繳金額</span>
@@ -65,6 +74,9 @@
         <td nz-td style="text-align:center">{{data.RoomNo}}</td>
         <td nz-td style="text-align:center">{{data.UserDetail.UserName}}</td>
         <td nz-td style="text-align:center">{{data.PowerQty}}</td>
+        <td nz-td style="text-align:center">{{data.UsedPowerQty}}</td>
+        <td nz-td style="text-align:center">{{data.UserDetail.TVCost | TVCostPipe}}</td>
+        <td nz-td style="text-align:center">{{data.UserDetail.RentDetail.RentMonthly}}</td>
         <td nz-td style="text-align:center">{{data.Payment}}</td>
         <td nz-td style="text-align:center">{{data.RentPeriod | amDateFormat: 'YYYY-MM'}}</td>
         <td nz-td style="text-align:center">
@@ -148,8 +160,7 @@
           <br>
           <br> 有線電視費用
           <span nz-table-divider></span>
-          <p *ngIf="data.UserDetail.TVCost">{{data.UserDetail.TVCost}}</p>
-          <p *ngIf="!data.UserDetail.TVCost">無</p>
+          <p>{{data.UserDetail.TVCost | TVCostPipe}}</p>
           <br> 搬入時間
           <span nz-table-divider></span>{{data.UserDetail.RentDetail.EnterDate | amDateFormat:'YYYY-MM-DD'}}
           <br>

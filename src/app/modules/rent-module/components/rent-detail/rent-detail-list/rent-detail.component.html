@@ -67,6 +67,8 @@
           <span>
             <a routerLink="/rent/payflow" [queryParams]="{RoomNo: data.RoomNo}">查詢繳費金流</a>
           </span>
+          <span nz-table-divider></span>
+          <a routerLink="/rent/payflow-add" [queryParams]="{RoomNo: data.RoomNo,UserID: data.UserID}">紀錄電表度數</a>
         </td>
       </tr>
       <tr nz-tbody-tr *ngIf="data.expand && data.UserDetails[0]">

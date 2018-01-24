@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { NzNotificationService } from 'ng-zorro-antd';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PayFlowService } from '../pay-flow.service';
 import { RentDetailService } from '../../rent-detail/rent-detail.service';
 import { PowerVM } from '../view-models/power-vm';
@@ -23,20 +23,42 @@ import { addPayFlowVM } from '../view-models/pay-flow-add-vm';
 export class PayFlowAddComponent implements OnInit {
   form: FormGroup;
   newPayFlow: addPayFlowVM = new addPayFlowVM();
-  rentDetail: RentDetailVM[] = [];
+  rentDetail: RentDetailVM[];
+  UserID: number;
+  RoomNo: string;
+  pastPowerQty: number;
   constructor(
     private fb: FormBuilder,
     private payFlowService: PayFlowService,
     private rentDetailService: RentDetailService,
     private notification: NzNotificationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
       RoomNo: ['', [Validators.required, this.RoomNoValidator]],
-      PowerQty: [0, [Validators.required, this.PowerQtyValidator]]
+      PowerQty: [null, [Validators.required, this.PowerQtyValidator]]
     });
+
+    this.route
+      .queryParams
+      .subscribe(params => {
+        this.UserID = params['UserID'];
+        this.RoomNo = params['RoomNo'];
+        this.payFlowService.getAllPayFlowNoPage(this.UserID).subscribe(result => {
+          console.log(result);
+          if (result.length > 0) {
+            this.pastPowerQty = result[result.length - 1].PowerQty;
+          }
+          else {
+            this.pastPowerQty = 0;
+          }
+        })
+      })
+
+
   }
 
   getFormControl(name) {
@@ -50,20 +72,24 @@ export class PayFlowAddComponent implements OnInit {
   }
 
   PowerQtyValidator = (control: FormControl): any => {
-    if (!+control.value) {
-      return { RoomNo: true, error: true }
+    if (+control.value < 0) {
+      return { PowerQty: true, error: true }
     }
   }
 
   submit(event, data: PowerVM) {
     let roomNo = data.RoomNo;
-    this.rentDetailService.getAllRentDetail(roomNo, 10, 1).subscribe(
+
+    this.rentDetailService.getAllRentNoPage(roomNo).subscribe(
       result => {
-        if (result.data.length===0) {
+        if (!result) {
           this.notification.create('error', '錯誤', "無此房間", { nzDuration: 0 });
         }
+        if (result[0].UserDetails.length === 0) {
+          this.notification.create('error', '錯誤', "尚未有房客入住", { nzDuration: 0 });
+        }
         else {
-          this.rentDetail = result.data;
+          this.rentDetail = result;
           this.newPayFlow.UserID = this.rentDetail[0].UserID;
           this.newPayFlow.CalculateType = this.rentDetail[0].UserDetails[0].CalculateType;
           this.newPayFlow.RoomNo = data.RoomNo;
@@ -77,6 +103,7 @@ export class PayFlowAddComponent implements OnInit {
               res => {
                 this.notification.create('success', '新增成功', '');
                 this.form.reset();
+                this.router.navigateByUrl('/rent/rentDetail');
               },
               err => {
                 this.notification.create('error', '錯誤', err, { nzDuration: 0 });

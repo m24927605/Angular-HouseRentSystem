@@ -24,6 +24,7 @@ import { PayFlowService } from './components/pay-flow/pay-flow.service';
 import { StatusPipe } from './components/user-detail/user.detail.pipe';
 import { ManagerService } from './components/manager/manager.service';
 import { RolePipe } from './components/manager/manager.pipe';
+import { TVCostPipe } from './components/pay-flow/pay-flow.pipe';
 
 export function httpFactory(backend: XHRBackend, options: RequestOptions) {
   return new HttpHelperService(backend, options);
@@ -48,7 +49,8 @@ export function httpFactory(backend: XHRBackend, options: RequestOptions) {
     UserDetailActionComponent,
     ManagerActionComponent,
     StatusPipe,
-    RolePipe
+    RolePipe,
+    TVCostPipe
   ],
   providers: [{
     provide: HttpHelperService,

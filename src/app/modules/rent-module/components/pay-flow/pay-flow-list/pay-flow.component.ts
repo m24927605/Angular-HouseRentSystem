@@ -25,8 +25,8 @@ export class PayFlowComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  getData(searchType, input, size, current) {
-    this.service.getAllPayFlow(searchType, input, size, current).subscribe(
+  getData(size, current, searchType, input) {
+    this.service.getAllPayFlow(size, current, searchType, input).subscribe(
       result => {
         this.data = result.data;
         this.pageSize = +result.size;
@@ -50,7 +50,7 @@ export class PayFlowComponent implements OnInit {
     }
     this._loading = true;
     this.searchType = 'RoomNo';
-    this.getData(this.searchType, this.inputValue, this.pageSize, 1);
+    this.getData(this.pageSize, 1, this.searchType, this.inputValue);
     this.searchType = '';
   }
 
@@ -62,10 +62,10 @@ export class PayFlowComponent implements OnInit {
 
   payMoney(ID) {
     let data: any = {};
-    this.service.updatePayFlow(data,ID).subscribe(
+    this.service.updatePayFlow(data, ID).subscribe(
       res => {
         this.notification.create('success', '繳費成功', '');
-        this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
+        this.getData(this.pageSize, this.currentPage, this.searchType, this.inputValue, );
       },
       err => {
         this.notification.create('error', '錯誤', err, { nzDuration: 0 });
@@ -86,12 +86,12 @@ export class PayFlowComponent implements OnInit {
           this.searchType = 'RoomNo';
         }
         if (this.inputValue && this.searchType) {
-          this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
+          this.getData(this.pageSize, this.currentPage, this.searchType, this.inputValue, );
         }
         if (!this.inputValue) {
           this.searchType = '';
         }
-        this.getData(this.searchType, this.inputValue, this.pageSize, this.currentPage);
+        this.getData(this.pageSize, this.currentPage, this.searchType, this.inputValue, );
       });
   }
 }

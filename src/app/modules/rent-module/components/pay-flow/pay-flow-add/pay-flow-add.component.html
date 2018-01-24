@@ -14,12 +14,20 @@
           <label nz-form-item-required>房號</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-input formControlName="RoomNo" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
+          <nz-input formControlName="RoomNo" [(ngModel)]="RoomNo" [nzType]="'text'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.RoomNo.dirty && form.controls.RoomNo.hasError('required')">請輸入 房號!</div>
           <div nz-form-explain *ngIf="getFormControl('RoomNo').dirty&&getFormControl('RoomNo').hasError('RoomNo')">請輸入 數字!</div>
         </div>
       </div>
+
+      <div nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label>前一期度數</label>
+        </div>
+        <div nz-form-label nz-col [nzSpan]="0">{{pastPowerQty}}</div>
+      </div>
+      <br>
 
       <div nz-form-item nz-row>
         <div nz-form-label nz-col [nzSpan]="7">
@@ -29,6 +37,7 @@
           <nz-input formControlName="PowerQty" [nzType]="'number'" [nzPlaceHolder]="''" [nzSize]="'large'">
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.PowerQty.dirty && form.controls.PowerQty.hasError('required')">請輸入 使用電量!</div>
+          <div nz-form-explain *ngIf="form.controls.PowerQty.dirty && form.controls.PowerQty.hasError('PowerQty')">請輸入 大於0的數字!</div>
         </div>
       </div>
 
