@@ -33,6 +33,9 @@
     "underscore": "^1.8.3",
     "zone.js": "^0.8.14"
   },
+  "engines": {
+    "node": "8.9.3"
+  },
   "devDependencies": {
     "@angular/cli": "1.6.3",
     "@angular/compiler-cli": "^5.0.0",

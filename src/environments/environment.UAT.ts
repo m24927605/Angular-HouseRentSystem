@@ -6,5 +6,4 @@
 export const environment = {
     production: false,
     RestApiIP: 'http://localhost:3000',
-    SocketServer: 'http://localhost:3000'
 };
