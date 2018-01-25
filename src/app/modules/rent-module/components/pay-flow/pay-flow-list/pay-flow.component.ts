@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PayFlowVM } from '../view-models/pay-flow-vm';
-import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
+import { NzMessageService, NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { PayFlowService } from '../pay-flow.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserDetailService } from '../../user-detail/user-detail.service';
 
 @Component({
   selector: 'app-pay-flow',
@@ -19,14 +20,29 @@ export class PayFlowComponent implements OnInit {
   total = 0;
 
   constructor(
-    private service: PayFlowService,
+    private payFlowService: PayFlowService,
+    private userDetailService: UserDetailService,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private confirmServ: NzModalService
   ) { }
 
+  showConfirm = (ID) => {
+    let willPayFlow: any = this.data[ID - 1];
+    let that = this;
+    this.confirmServ.confirm({
+      title: '確認繳費',
+      content: `<b>房客 ${willPayFlow.UserName} 需繳 ${willPayFlow.Payment}元</b>`,
+      onOk() {
+        that.payMoney(ID);
+      },
+      onCancel() {
+      }
+    });
+  }
   getData(size, current, searchType, input) {
-    this.service.getAllPayFlow(size, current, searchType, input).subscribe(
+    this.payFlowService.getAllPayFlow(size, current, searchType, input).subscribe(
       result => {
         this.data = result.data;
         this.pageSize = +result.size;
@@ -56,13 +72,13 @@ export class PayFlowComponent implements OnInit {
 
   pageChange(page) {
     if (this.data.length > 0) {
-      this.getData(this.searchType, this.inputValue, this.pageSize, page);
+      this.getData(this.pageSize, page, this.searchType, this.inputValue);
     }
   }
 
   payMoney(ID) {
     let data: any = {};
-    this.service.updatePayFlow(data, ID).subscribe(
+    this.payFlowService.updatePayFlow(data, ID).subscribe(
       res => {
         this.notification.create('success', '繳費成功', '');
         this.getData(this.pageSize, this.currentPage, this.searchType, this.inputValue, );

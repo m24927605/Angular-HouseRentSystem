@@ -95,7 +95,7 @@
           <label nz-form-item-required>搬離日期</label>
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
-          <nz-datepicker formControlName="LeaveDate" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
+          <nz-datepicker nz-tooltip="入住請勿填寫!!" formControlName="LeaveDate" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
           <div nz-form-explain *ngIf="form.controls.LeaveDate.dirty && form.controls.LeaveDate.hasError('required')">請輸入 搬離日期!</div>
         </div>
       </div>

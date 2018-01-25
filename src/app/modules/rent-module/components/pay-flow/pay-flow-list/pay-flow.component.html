@@ -95,7 +95,7 @@
           <button *ngIf="data.TimeOfPayment" nz-button [nzType]="'primary'" disabled>
             <span>繳費</span>
           </button>
-          <button *ngIf="!data.TimeOfPayment" nz-button [nzType]="'primary'" (click)="payMoney(data.ID)">
+          <button *ngIf="!data.TimeOfPayment" nz-button [nzType]="'primary'" (click)="showConfirm(data.ID)">
             <span>繳費</span>
           </button>
         </td>

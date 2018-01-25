@@ -26,6 +26,7 @@ export class PayFlowAddComponent implements OnInit {
   rentDetail: RentDetailVM[];
   UserID: number;
   RoomNo: string;
+  RoomID: number;
   pastPowerQty: number;
   constructor(
     private fb: FormBuilder,
@@ -47,18 +48,21 @@ export class PayFlowAddComponent implements OnInit {
       .subscribe(params => {
         this.UserID = params['UserID'];
         this.RoomNo = params['RoomNo'];
-        this.payFlowService.getAllPayFlowNoPage(this.UserID).subscribe(result => {
-          console.log(result);
-          if (result.length > 0) {
-            this.pastPowerQty = result[result.length - 1].PowerQty;
-          }
-          else {
-            this.pastPowerQty = 0;
-          }
-        })
+        this.RoomID = params['RoomID'];
+        if (this.UserID) {
+          this.payFlowService.getAllPayFlowNoPage(this.UserID).subscribe(result => {
+            if (result.length > 0) {
+              this.pastPowerQty = result[result.length - 1].PowerQty;
+            }
+            else {
+              this.pastPowerQty = 0;
+            }
+          })
+        } else {
+          this.notification.create('error', '錯誤', "尚未有房客入住", { nzDuration: 0 });
+          this.router.navigateByUrl('/rent/rentDetail');
+        }
       })
-
-
   }
 
   getFormControl(name) {
@@ -79,8 +83,8 @@ export class PayFlowAddComponent implements OnInit {
 
   submit(event, data: PowerVM) {
     let roomNo = data.RoomNo;
-
-    this.rentDetailService.getAllRentNoPage(roomNo).subscribe(
+    let roomID = this.RoomID;
+    this.rentDetailService.getAllRentNoPage(roomID).subscribe(
       result => {
         if (!result) {
           this.notification.create('error', '錯誤', "無此房間", { nzDuration: 0 });
@@ -90,7 +94,7 @@ export class PayFlowAddComponent implements OnInit {
         }
         else {
           this.rentDetail = result;
-          this.newPayFlow.UserID = this.rentDetail[0].UserID;
+          this.newPayFlow.UserID = this.UserID;
           this.newPayFlow.CalculateType = this.rentDetail[0].UserDetails[0].CalculateType;
           this.newPayFlow.RoomNo = data.RoomNo;
           this.newPayFlow.PowerQty = data.PowerQty;
