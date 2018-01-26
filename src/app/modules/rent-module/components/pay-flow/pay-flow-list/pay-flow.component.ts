@@ -90,6 +90,7 @@ export class PayFlowComponent implements OnInit {
   }
 
   ngOnInit() {
+    const id = this.message.loading('加載資料中', {nzDuration: 0}).messageId;
     this.route
       .queryParams
       .subscribe(params => {
@@ -108,6 +109,7 @@ export class PayFlowComponent implements OnInit {
           this.searchType = '';
         }
         this.getData(this.pageSize, this.currentPage, this.searchType, this.inputValue, );
+        this.message.remove(id);
       });
   }
 }

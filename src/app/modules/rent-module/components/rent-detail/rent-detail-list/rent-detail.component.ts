@@ -63,6 +63,8 @@ export class RentDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    const id = this.message.loading('加載資料中', {nzDuration: 0}).messageId;
     this.getData(this.inputValue, this.pageSize, this.currentPage);
+    this.message.remove(id);
   }
 }

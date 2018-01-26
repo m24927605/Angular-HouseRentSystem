@@ -18,7 +18,7 @@ export class UserDetailComponent implements OnInit {
   total = 0;
 
   constructor(
-    private route:Router,
+    private route: Router,
     private service: UserDetailService,
     private message: NzMessageService,
     private notification: NzNotificationService
@@ -61,6 +61,8 @@ export class UserDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    const id = this.message.loading('加載資料中', { nzDuration: 0 }).messageId;
     this.getData(this.inputValue, this.pageSize, this.currentPage);
+    this.message.remove(id);
   }
 }
