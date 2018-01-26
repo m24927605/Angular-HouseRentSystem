@@ -31,7 +31,7 @@ const services = [
   AuthService,
   DataAccessService,
   HttpHelperService,
-  CookieHelperService
+  CookieHelperService,
 ];
 
 const guards = [

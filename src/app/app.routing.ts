@@ -7,11 +7,11 @@ import { LoginComponent } from './shared/components/login/login.component';
 import { LoginGuard } from './shared/guards/login.guard';
 
 const routes: Routes = [
-    //{ path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
     {
         path: '', component: AppComponent,
         loadChildren: 'app/modules/page-module/page.module#PageModule',
-        //canActivate: [LoginGuard]
+        canActivate: [LoginGuard]
     },
     { path: '**', redirectTo: 'login' }
 ];

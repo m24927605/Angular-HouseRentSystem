@@ -19,8 +19,8 @@ export class AuthService {
     private router: Router
   ) { }
 
-  login(loginId: string, password: string): Observable<LoginResult> {
-    return this.http.post<LoginResult>(`${environment.RestApiIP}/login`, { LoginID: loginId.trim(), Password: password.trim() })
+  login(data): Observable<LoginResult> {
+    return this.http.post<LoginResult>(`${environment.RestApiIP}/login`, { Account: data.Account, Password: data.Password })
       .do(res => {
         this.cookie.setCookie('token', res.token);
         this.cookie.setCookie('role', res.role);

@@ -1,0 +1,18 @@
+.login-form {
+    max-width: 500px;
+  }
+
+  .login-form-forgot {
+    float: right;
+  }
+
+  .login-form-button {
+    width: 100%;
+  }
+
+  .vertical-center-modal {
+    margin-top:100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
