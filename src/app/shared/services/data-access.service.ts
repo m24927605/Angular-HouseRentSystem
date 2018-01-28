@@ -56,7 +56,7 @@ export class DataAccessService {
    */
   getData<T>(url: string): Observable<T> {
     // 呼叫restful API
-    return this.http.get(`${environment.RestApiIP}${url}`, this.options)
+    return this.http.get(`${environment.RestApiIP}${environment.RestApiRoute}${url}`, this.options)
       .map((response: Response) => {
         this.resultData = response.json();
         return this.resultData;
@@ -65,7 +65,7 @@ export class DataAccessService {
   }
   postData<T>(input: object, url: string): Observable<T> {
     // 呼叫restful API
-    return this.http.post(`${environment.RestApiIP}${url}`, input, this.options)
+    return this.http.post(`${environment.RestApiIP}${environment.RestApiRoute}${url}`, input, this.options)
       .map((response: Response) => {
         this.resultData = response.json();
         return this.resultData;
@@ -75,7 +75,7 @@ export class DataAccessService {
 
   patchData<T>(input: object, url: string): Observable<T> {
     // 呼叫restful API
-    return this.http.patch(`${environment.RestApiIP}${url}`, input, this.options)
+    return this.http.patch(`${environment.RestApiIP}${environment.RestApiRoute}${url}`, input, this.options)
       .map((response: Response) => {
         this.resultData = response.json();
         return this.resultData;

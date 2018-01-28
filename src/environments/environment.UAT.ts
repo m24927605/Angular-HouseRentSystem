@@ -6,4 +6,5 @@
 export const environment = {
     production: false,
     RestApiIP: 'http://localhost:3000',
+    RestApiRoute:'/api'
 };
