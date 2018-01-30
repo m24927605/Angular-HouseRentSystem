@@ -12,8 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PayFlowService } from '../pay-flow.service';
 import { RentDetailService } from '../../rent-detail/rent-detail.service';
 import { PowerVM } from '../view-models/power-vm';
-import { RentDetailVM } from '../../rent-detail/view-models/rent-detail-vm';
 import { addPayFlowVM } from '../view-models/pay-flow-add-vm';
+import { UserDetailService } from '../../user-detail/user-detail.service';
+import { UserDetailVM } from '../../user-detail/view-models/user-detail-vm';
 
 @Component({
   selector: 'app-pay-flow-add',
@@ -23,7 +24,7 @@ import { addPayFlowVM } from '../view-models/pay-flow-add-vm';
 export class PayFlowAddComponent implements OnInit {
   form: FormGroup;
   newPayFlow: addPayFlowVM = new addPayFlowVM();
-  rentDetail: RentDetailVM[];
+  userDetail: UserDetailVM;
   UserID: number;
   RoomNo: string;
   RoomID: number;
@@ -32,6 +33,7 @@ export class PayFlowAddComponent implements OnInit {
     private fb: FormBuilder,
     private payFlowService: PayFlowService,
     private rentDetailService: RentDetailService,
+    private userDetailService: UserDetailService,
     private notification: NzNotificationService,
     private router: Router,
     private route: ActivatedRoute
@@ -82,20 +84,19 @@ export class PayFlowAddComponent implements OnInit {
   }
 
   submit(event, data: PowerVM) {
-    let roomNo = data.RoomNo;
-    let roomID = this.RoomID;
-    this.rentDetailService.getAllRentNoPage(roomID).subscribe(
+
+    this.userDetailService.getOneUserDetail(this.UserID).subscribe(
       result => {
         if (!result) {
           this.notification.create('error', '錯誤', "無此房間", { nzDuration: 0 });
         }
-        if (result[0].UserDetails.length === 0) {
+        if (!result.UserName) {
           this.notification.create('error', '錯誤', "尚未有房客入住", { nzDuration: 0 });
         }
         else {
-          this.rentDetail = result;
+          this.userDetail = result;
           this.newPayFlow.UserID = this.UserID;
-          this.newPayFlow.CalculateType = this.rentDetail[0].UserDetails[0].CalculateType;
+          this.newPayFlow.CalculateType = this.userDetail.CalculateType;
           this.newPayFlow.RoomNo = data.RoomNo;
           this.newPayFlow.PowerQty = data.PowerQty;
           this.newPayFlow.Payment = 0;
