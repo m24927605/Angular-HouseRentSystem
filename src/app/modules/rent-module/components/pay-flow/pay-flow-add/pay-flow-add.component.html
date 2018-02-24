@@ -46,6 +46,7 @@
           </nz-input>
           <div nz-form-explain *ngIf="form.controls.PowerQty.dirty && form.controls.PowerQty.hasError('required')">請輸入 使用電量!</div>
           <div nz-form-explain *ngIf="form.controls.PowerQty.dirty && form.controls.PowerQty.hasError('PowerQty')">請輸入 大於0的數字!</div>
+          <div nz-form-explain *ngIf="form.controls.PowerQty.dirty && form.controls.PowerQty.hasError('PowerQtySmallThan')">本期電力應比前一期電力度數大!</div>
         </div>
       </div>
 

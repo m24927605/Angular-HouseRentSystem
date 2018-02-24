@@ -28,14 +28,16 @@ export class PayFlowComponent implements OnInit {
     private confirmServ: NzModalService
   ) { }
 
-  showConfirm = (ID) => {
-    let willPayFlow: any = this.data[ID - 1];
+  showConfirm = (index) => {
+    console.log(this.data);
+    console.log(index);
+    let willPayFlow: any = this.data[index];
     let that = this;
     this.confirmServ.confirm({
       title: '確認繳費',
       content: `<b>房客 ${willPayFlow.UserName} 需繳 ${willPayFlow.Payment}元</b>`,
       onOk() {
-        that.payMoney(ID);
+        that.payMoney(index);
       },
       onCancel() {
       }
@@ -76,9 +78,9 @@ export class PayFlowComponent implements OnInit {
     }
   }
 
-  payMoney(ID) {
+  payMoney(index) {
     let data: any = {};
-    this.payFlowService.updatePayFlow(data, ID).subscribe(
+    this.payFlowService.updatePayFlow(data, index).subscribe(
       res => {
         this.notification.create('success', '繳費成功', '');
         this.getData(this.pageSize, this.currentPage, this.searchType, this.inputValue, );
@@ -90,7 +92,7 @@ export class PayFlowComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = this.message.loading('加載資料中', {nzDuration: 0}).messageId;
+    const id = this.message.loading('加載資料中', { nzDuration: 0 }).messageId;
     this.route
       .queryParams
       .subscribe(params => {

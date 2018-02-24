@@ -65,7 +65,7 @@
     </tr>
   </thead>
   <tbody nz-tbody>
-    <ng-template ngFor let-data [ngForOf]="nzTable.data">
+    <ng-template ngFor let-data  let-i="index" [ngForOf]="nzTable.data">
       <tr nz-tbody-tr>
         <td nz-td nzExpand style="text-align:center">
           <nz-row-expand-icon [(nzExpand)]="data.expand"></nz-row-expand-icon>
@@ -95,7 +95,7 @@
           <button *ngIf="data.TimeOfPayment" nz-button [nzType]="'primary'" disabled>
             <span>繳費</span>
           </button>
-          <button *ngIf="!data.TimeOfPayment" nz-button [nzType]="'primary'" (click)="showConfirm(data.ID)">
+          <button *ngIf="!data.TimeOfPayment" nz-button [nzType]="'primary'" (click)="showConfirm(i)">
             <span>繳費</span>
           </button>
         </td>

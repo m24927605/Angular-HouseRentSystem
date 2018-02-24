@@ -5,6 +5,6 @@
 
 export const environment = {
     production: false,
-    RestApiIP: 'http://localhost:3000',
-    RestApiRoute:'/api'
+    RestApiIP: 'https://rentsystem-server.herokuapp.com',
+    RestApiRoute: '/api'
 };

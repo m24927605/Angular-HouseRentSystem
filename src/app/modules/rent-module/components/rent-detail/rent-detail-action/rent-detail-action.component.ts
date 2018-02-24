@@ -165,7 +165,6 @@ export class RentDetailActionComponent implements OnInit {
                   addObj.LeaveDate = null;
                   addObj.RentStartDate = null;
                   addObj.RentEndDate = null;
-                  console.log(addObj);
                   this.rentDetailService.addRentDetail(addObj).subscribe(res => {
                     this.notification.create('success', '編輯成功', '');
                     this.form.reset();

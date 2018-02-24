@@ -42,7 +42,7 @@ export class PayFlowAddComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       RoomNo: ['', [Validators.required, this.RoomNoValidator]],
-      PowerQty: [null, [Validators.required, this.PowerQtyValidator]]
+      PowerQty: [null, [Validators.required, this.PowerQtyValidator,]]
     });
 
     this.route
@@ -80,6 +80,9 @@ export class PayFlowAddComponent implements OnInit {
   PowerQtyValidator = (control: FormControl): any => {
     if (+control.value < 0) {
       return { PowerQty: true, error: true }
+    }
+    if (+control.value < this.pastPowerQty) {
+      return { PowerQtySmallThan: true, error: true }
     }
   }
 
