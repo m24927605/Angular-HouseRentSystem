@@ -52,7 +52,8 @@
         </div>
         <div nz-col [nzSpan]="12" nz-form-control>
           <nz-datepicker formControlName="RentEndDate" [nzSize]="'large'" [nzPlaceHolder]="'選擇日期'" style="width: 100%;"></nz-datepicker>
-          <div nz-form-explain *ngIf="form.controls.RentEndDate.dirty && form.controls.RentEndDate.hasError('required')">請輸入 租約起始時間!</div>
+          <div nz-form-explain *ngIf="form.controls.RentEndDate.dirty && form.controls.RentEndDate.hasError('required')">請輸入 租約結束時間!</div>
+          <div nz-form-explain *ngIf="form.controls.RentEndDate.dirty && form.controls.RentEndDate.hasError('RentPeriod')">租約結束時間不應早於租約起始時間!</div>
         </div>
       </div>
 

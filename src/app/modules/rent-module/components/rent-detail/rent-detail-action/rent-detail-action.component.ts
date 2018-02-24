@@ -43,7 +43,7 @@ export class RentDetailActionComponent implements OnInit {
       UserID: [null],
       RoomNo: [null, [Validators.required, this.RoomNoValidator]],
       RentStartDate: [null],
-      RentEndDate: [null],
+      RentEndDate: [null, this.RentPeriodValidator],
       PowerUnitCost: [null, [Validators.required, this.PowerUnitCostValidator]],
       RentMonthly: [null, [Validators.required, this.RentMonthlyValidator]],
       EnterDate: [null],
@@ -128,6 +128,15 @@ export class RentDetailActionComponent implements OnInit {
   RentMonthlyValidator = (control: FormControl): any => {
     if (+control.value === 0 || +control.value < 0) {
       return { RentMonthly: true, error: true }
+    }
+  };
+
+  RentPeriodValidator = (control: FormControl): any => {
+    console.log(this.form.controls);
+    let startDate = moment(this.getFormControl('RentStartDate').value, 'YYYY-MM-DD');
+    let endDate = moment(this.getFormControl('RentEndDate').value, 'YYYY-MM-DD')
+    if (endDate.isBefore(startDate)) {
+      return { RentPeriod: true, error: true }
     }
   };
 
