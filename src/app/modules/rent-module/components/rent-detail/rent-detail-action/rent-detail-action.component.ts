@@ -26,6 +26,8 @@ export class RentDetailActionComponent implements OnInit {
   selectedOption;
   Title: string;
   Params: string;
+  RentStartDate: string = '';
+  RentEndDate: string = '';
   constructor(
     private fb: FormBuilder,
     private rentDetailService: RentDetailService,
@@ -43,7 +45,7 @@ export class RentDetailActionComponent implements OnInit {
       UserID: [null],
       RoomNo: [null, [Validators.required, this.RoomNoValidator]],
       RentStartDate: [null],
-      RentEndDate: [null, this.RentPeriodValidator],
+      RentEndDate: [null, [this.RentPeriodValidator]],
       PowerUnitCost: [null, [Validators.required, this.PowerUnitCostValidator]],
       RentMonthly: [null, [Validators.required, this.RentMonthlyValidator]],
       EnterDate: [null],
@@ -132,9 +134,8 @@ export class RentDetailActionComponent implements OnInit {
   };
 
   RentPeriodValidator = (control: FormControl): any => {
-    console.log(this.form.controls);
-    let startDate = moment(this.getFormControl('RentStartDate').value, 'YYYY-MM-DD');
-    let endDate = moment(this.getFormControl('RentEndDate').value, 'YYYY-MM-DD')
+    let startDate = moment(this.RentStartDate, 'YYYY-MM-DD');
+    let endDate = moment(this.RentEndDate, 'YYYY-MM-DD')
     if (endDate.isBefore(startDate)) {
       return { RentPeriod: true, error: true }
     }
